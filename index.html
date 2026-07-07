@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VulnAudit — Prototype</title>
+  <style>
+    :root { --bg:#0f1020; --card:#1a1b35; --accent:#6c63ff; --text:#e8e8f2; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin:0; background:#0f1020;
+           color:#e8e8f2; padding:24px; max-width:720px; margin:0 auto; }
+    h1 { font-size:20px; } h2 { font-size:15px; color:#a9a9c9; margin-top:28px; }
+    .card { background:#1a1b35; border:1px solid #2a2b4a; border-radius:10px;
+            padding:16px; margin-bottom:16px; }
+    input, button { font-size:14px; padding:9px 11px; border-radius:7px;
+                    border:1px solid #2a2b4a; background:#0f1020; color:#e8e8f2; }
+    button { background:#6c63ff; border:none; cursor:pointer; font-weight:600; }
+    button:hover { opacity:.9; }
+    label { display:block; font-size:12px; color:#a9a9c9; margin:8px 0 3px; }
+    pre { background:#0b0c18; padding:10px; border-radius:7px; overflow:auto;
+          font-size:12px; white-space:pre-wrap; }
+    .row { display:flex; gap:8px; flex-wrap:wrap; align-items:end; }
+  </style>
+</head>
+<body>
+  <h1>🔒 VulnAudit — prototype</h1>
+  <p style="color:#a9a9c9;font-size:13px;">
+    Démonstration du parcours : inscription → connexion → déclaration de domaine
+    → publication DNS TXT → vérification → scan → rapport. Aucun scan n'est
+    autorisé sans preuve de propriété.</p>
+
+  <div class="card">
+    <h2>1. Compte</h2>
+    <label>E-mail</label><input id="email" value="demo@exemple.fr">
+    <label>Mot de passe (≥ 8 caractères)</label><input id="password" type="password" value="motdepasse123">
+    <div class="row" style="margin-top:10px;">
+      <button onclick="register()">S'inscrire</button>
+      <button onclick="login()">Se connecter</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. Domaine & propriété</h2>
+    <label>Domaine (FQDN)</label><input id="fqdn" value="exemple.fr">
+    <div class="row" style="margin-top:10px;">
+      <button onclick="declareDomain()">Déclarer</button>
+      <button onclick="verifyDomain()">Vérifier la propriété</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3. Scan & rapport</h2>
+    <div class="row">
+      <button onclick="launchScan()">Lancer un scan</button>
+      <button onclick="refreshScan()">Rafraîchir le statut</button>
+      <button onclick="openReport()">Ouvrir le rapport HTML</button>
+    </div>
+  </div>
+
+  <h2>Journal</h2>
+  <pre id="log">Prêt.</pre>
+
+<script>
+// URL de l'API. En Docker, le navigateur accède à l'API via localhost:8000.
+const API = (location.hostname ? `http://${location.hostname}:8000` : "http://localhost:8000");
+let token = null, domainId = null, scanId = null;
+
+function log(x){ document.getElementById('log').textContent =
+  (typeof x === 'string' ? x : JSON.stringify(x, null, 2)) + "\n\n" +
+  document.getElementById('log').textContent; }
+
+async function api(path, opts={}) {
+  opts.headers = Object.assign({}, opts.headers || {},
+    token ? { Authorization: "Bearer " + token } : {});
+  const r = await fetch(API + path, opts);
+  const body = await r.text();
+  let data; try { data = JSON.parse(body); } catch { data = body; }
+  if (!r.ok) log({ erreur: r.status, detail: data });
+  return { ok: r.ok, status: r.status, data };
+}
+
+async function register(){
+  const r = await api("/auth/register", { method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ email: email.value, password: password.value }) });
+  if (r.ok) log("Compte créé : " + email.value);
+}
+async function login(){
+  const form = new URLSearchParams({ username: email.value, password: password.value });
+  const r = await api("/auth/login", { method:"POST",
+    headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body: form });
+  if (r.ok){ token = r.data.access_token; log("Connecté. Jeton obtenu."); }
+}
+async function declareDomain(){
+  const r = await api("/domains", { method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ fqdn: fqdn.value }) });
+  if (r.ok){ domainId = r.data.id;
+    log("Domaine déclaré. PUBLIEZ CE TXT DNS :\n" +
+        r.data.verification_record_value + "\n" + r.data.instructions); }
+}
+async function verifyDomain(){
+  const r = await api(`/domains/${domainId}/verify`, { method:"POST" });
+  if (r.ok) log("Propriété vérifiée ✔ — scans autorisés.");
+}
+async function launchScan(){
+  const r = await api(`/domains/${domainId}/scans`, { method:"POST" });
+  if (r.ok){ scanId = r.data.id; log("Scan lancé (id " + scanId + "), statut: " + r.data.status); }
+}
+async function refreshScan(){
+  const r = await api(`/scans/${scanId}`);
+  if (r.ok) log(r.data);
+}
+function openReport(){
+  // Le rapport exige le jeton ; on le télécharge avec l'en-tête puis on l'affiche.
+  fetch(`${API}/scans/${scanId}/report.html`, { headers:{ Authorization:"Bearer "+token }})
+    .then(r => r.text()).then(html => {
+      const w = window.open("", "_blank"); w.document.write(html); w.document.close();
+    });
+}
+</script>
+</body>
+</html>
