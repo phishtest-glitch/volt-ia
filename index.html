@@ -1,123 +1,941 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VulnAudit — Prototype</title>
-  <style>
-    :root { --bg:#0f1020; --card:#1a1b35; --accent:#6c63ff; --text:#e8e8f2; }
-    * { box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; margin:0; background:#0f1020;
-           color:#e8e8f2; padding:24px; max-width:720px; margin:0 auto; }
-    h1 { font-size:20px; } h2 { font-size:15px; color:#a9a9c9; margin-top:28px; }
-    .card { background:#1a1b35; border:1px solid #2a2b4a; border-radius:10px;
-            padding:16px; margin-bottom:16px; }
-    input, button { font-size:14px; padding:9px 11px; border-radius:7px;
-                    border:1px solid #2a2b4a; background:#0f1020; color:#e8e8f2; }
-    button { background:#6c63ff; border:none; cursor:pointer; font-weight:600; }
-    button:hover { opacity:.9; }
-    label { display:block; font-size:12px; color:#a9a9c9; margin:8px 0 3px; }
-    pre { background:#0b0c18; padding:10px; border-radius:7px; overflow:auto;
-          font-size:12px; white-space:pre-wrap; }
-    .row { display:flex; gap:8px; flex-wrap:wrap; align-items:end; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volt IA — Informatique entreprises &amp; particuliers, jusqu'à 50% pris en charge</title>
+<meta name="description" content="Volt IA : dépannage, cybersécurité et intégration IA pour entreprises et particuliers. Jusqu'à 50% de vos prestations pris en charge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#080b12;
+  --surface:#10141f;
+  --surface-2:#161c2b;
+  --line:#232b3f;
+  --text:#eef1f7;
+  --text-dim:#8993ab;
+  --text-faint:#5b6480;
+  --volt:#d4ff3d;
+  --volt-dim:#8fae2b;
+  --entreprise:#4f9dff;
+  --entreprise-glow:rgba(79,157,255,.18);
+  --particulier:#ffb020;
+  --particulier-glow:rgba(255,176,32,.18);
+  --danger:#ff6b6b;
+  --radius:14px;
+  --serif-display: 'Space Grotesk', sans-serif;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  line-height:1.55;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+img{max-width:100%;}
+.container{max-width:1180px; margin:0 auto; padding:0 28px;}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:"";
+  width:22px; height:1px;
+  background:currentColor;
+  opacity:.5;
+}
+h1,h2,h3{font-family:var(--serif-display); font-weight:600; letter-spacing:-.01em;}
+h2{font-size:clamp(1.7rem, 3.2vw, 2.5rem); margin-bottom:14px;}
+h3{font-size:1.15rem;}
+.section-lede{color:var(--text-dim); max-width:620px; font-size:1.02rem; margin-bottom:40px;}
+.btn{
+  font-family:var(--sans);
+  font-weight:600;
+  font-size:.92rem;
+  border-radius:999px;
+  padding:13px 26px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--text);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+  text-decoration:none;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline:2px solid var(--volt); outline-offset:3px;
+}
+.btn-volt{background:var(--volt); color:#0a1000; border-color:var(--volt);}
+.btn-volt:hover{box-shadow:0 0 28px rgba(212,255,61,.35);}
+.btn-ghost:hover{border-color:var(--text-dim);}
+
+/* ============ NAV ============ */
+header.nav{
+  position:sticky; top:0; z-index:100;
+  background:rgba(8,11,18,.86);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1180px; margin:0 auto; padding:14px 28px;
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+}
+.logo{
+  font-family:var(--serif-display); font-weight:700; font-size:1.25rem;
+  display:flex; align-items:center; gap:8px; letter-spacing:-.02em;
+  text-decoration:none; color:var(--text);
+}
+.logo .bolt{color:var(--volt); font-size:1.3rem; line-height:0;}
+.nav-links{display:flex; gap:26px; font-size:.88rem; font-weight:500;}
+.nav-links a{text-decoration:none; color:var(--text-dim); transition:color .15s ease; position:relative;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{display:flex; align-items:center; gap:14px;}
+.nav-phone{
+  font-family:var(--mono); font-size:.86rem; color:var(--text-dim); text-decoration:none;
+  display:none;
+}
+@media(min-width:900px){.nav-phone{display:inline;}}
+.nav-toggle{display:none; background:none; border:none; color:var(--text); font-size:1.4rem; cursor:pointer;}
+@media(max-width:820px){
+  .nav-links{display:none;}
+  .nav-toggle{display:block;}
+}
+
+/* ============ HERO / BREAKER PANEL ============ */
+.hero{
+  position:relative;
+  padding:96px 0 70px;
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:42px 42px;
+  opacity:.35;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%);
+}
+.hero-inner{position:relative; z-index:2;}
+.hero-tag{
+  font-family:var(--mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--volt); display:inline-flex; align-items:center; gap:8px; margin-bottom:22px;
+  border:1px solid rgba(212,255,61,.35); padding:6px 14px; border-radius:999px;
+  background:rgba(212,255,61,.06);
+}
+.hero-tag .dot{width:6px; height:6px; border-radius:50%; background:var(--volt); box-shadow:0 0 8px var(--volt); animation:pulse 1.8s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero h1{
+  font-size:clamp(2.4rem, 6vw, 4.6rem);
+  line-height:1.02;
+  max-width:900px;
+  letter-spacing:-.03em;
+}
+.hero h1 .flick{
+  display:inline-block;
+  animation: flicker 2.4s ease-out .15s both;
+}
+@keyframes flicker{
+  0%{opacity:0; filter:brightness(3);}
+  6%{opacity:1;}
+  8%{opacity:.2;}
+  10%{opacity:1;}
+  13%{opacity:.35;}
+  16%{opacity:1; filter:brightness(1);}
+  100%{opacity:1;}
+}
+.hero p.lede{
+  margin-top:22px; font-size:1.12rem; color:var(--text-dim); max-width:560px;
+}
+.hero p.lede strong{color:var(--text); font-weight:600;}
+
+/* breaker switches */
+.breaker-row{
+  margin-top:52px;
+  display:grid; grid-template-columns:1fr 1fr; gap:22px;
+  max-width:820px;
+}
+@media(max-width:680px){.breaker-row{grid-template-columns:1fr;}}
+.breaker{
+  --acc: var(--text-dim);
+  position:relative;
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:var(--radius);
+  padding:22px 22px 22px 24px;
+  display:flex; align-items:center; gap:18px;
+  cursor:pointer;
+  text-align:left;
+  color:var(--text);
+  font-family:var(--sans);
+  transition:border-color .25s ease, background .25s ease;
+  overflow:hidden;
+}
+.breaker::after{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(120px 120px at 20% 50%, var(--acc) 0%, transparent 70%);
+  opacity:0;
+  transition:opacity .3s ease;
+  pointer-events:none;
+}
+.breaker:hover::after, .breaker.armed::after{opacity:.14;}
+.breaker:hover, .breaker.armed{border-color:var(--acc);}
+.breaker[data-mode="entreprise"]{--acc:var(--entreprise);}
+.breaker[data-mode="particulier"]{--acc:var(--particulier);}
+.switch{
+  flex-shrink:0;
+  width:52px; height:30px;
+  border-radius:999px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  position:relative;
+  transition:background .25s ease, border-color .25s ease;
+}
+.switch::before{
+  content:"";
+  position:absolute; top:3px; left:3px;
+  width:22px; height:22px; border-radius:50%;
+  background:var(--text-faint);
+  transition:transform .25s cubic-bezier(.4,1.4,.6,1), background .25s ease;
+}
+.breaker.armed .switch{background:var(--acc); border-color:var(--acc);}
+.breaker.armed .switch::before{transform:translateX(22px); background:#0a0e17;}
+.breaker-label{font-weight:600; font-size:1.05rem;}
+.breaker-sub{font-size:.83rem; color:var(--text-dim); margin-top:3px;}
+.breaker-badge{
+  margin-left:auto; font-family:var(--mono); font-size:.7rem;
+  color:var(--acc); border:1px solid var(--acc); border-radius:6px; padding:3px 8px;
+  opacity:.85; white-space:nowrap;
+}
+
+/* ============ SECTION SHELLS ============ */
+section{padding:88px 0; position:relative;}
+.zone-entreprise{
+  background:linear-gradient(180deg, transparent 0%, var(--entreprise-glow) 12%, transparent 88%);
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.zone-particulier{
+  background:linear-gradient(180deg, transparent 0%, var(--particulier-glow) 12%, transparent 88%);
+  border-bottom:1px solid var(--line);
+}
+.zone-head{display:flex; align-items:center; gap:14px; margin-bottom:6px;}
+.zone-pill{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 12px; border-radius:999px; border:1px solid currentColor;
+}
+.zone-entreprise .zone-pill{color:var(--entreprise);}
+.zone-particulier .zone-pill{color:var(--particulier);}
+
+/* bandeau */
+.bandeau{
+  display:flex; gap:14px; align-items:flex-start;
+  border-radius:var(--radius);
+  padding:18px 20px;
+  margin:26px 0 44px;
+  font-size:.94rem;
+  border:1px solid var(--line);
+}
+.bandeau-warning{background:rgba(255,176,32,.06); border-color:rgba(255,176,32,.35);}
+.bandeau-ok{background:rgba(79,157,255,.06); border-color:rgba(79,157,255,.35);}
+.bandeau .ic{font-size:1.2rem; line-height:1.3;}
+.bandeau strong{display:block; margin-bottom:2px;}
+.sap-tag{
+  font-family:var(--mono); font-size:.76rem; color:var(--text-dim);
+  margin-top:8px; display:inline-block; border-top:1px dashed var(--line); padding-top:8px;
+}
+
+/* card grid */
+.grid{display:grid; gap:18px;}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:900px){.grid-3{grid-template-columns:repeat(2,1fr);} .grid-2{grid-template-columns:1fr;}}
+@media(max-width:640px){.grid-3{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  transition:transform .25s ease, border-color .25s ease, opacity .6s ease, transform .6s ease;
+}
+.card:hover{transform:translateY(-4px); border-color:var(--text-faint);}
+.reveal{opacity:0; transform:translateY(18px);}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+.badge{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.03em;
+  padding:5px 10px; border-radius:999px; margin-bottom:14px;
+  border:1px solid var(--line);
+}
+.badge .led{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
+.badge-eligible{color:var(--volt); border-color:rgba(212,255,61,.4);}
+.badge-eligible .led{background:var(--volt); box-shadow:0 0 6px var(--volt); animation:pulse 2s ease-in-out infinite;}
+.badge-non{color:var(--text-faint); border-color:var(--line);}
+.badge-non .led{background:var(--text-faint);}
+.badge-50{color:var(--particulier); border-color:rgba(255,176,32,.4);}
+.badge-50 .led{background:var(--particulier); box-shadow:0 0 6px var(--particulier); animation:pulse 2s ease-in-out infinite;}
+
+.card h3{margin-bottom:8px; font-size:1.05rem;}
+.card p{color:var(--text-dim); font-size:.9rem;}
+.card .note{
+  margin-top:12px; font-size:.78rem; color:var(--text-faint);
+  border-top:1px solid var(--line); padding-top:10px;
+}
+
+/* aides list */
+.disp-list{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;}
+@media(max-width:960px){.disp-list{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.disp-list{grid-template-columns:1fr;}}
+.disp{
+  border:1px solid var(--line); border-radius:12px; padding:16px;
+  font-size:.85rem; background:var(--surface);
+}
+.disp .n{font-family:var(--mono); color:var(--entreprise); font-size:.72rem; display:block; margin-bottom:8px;}
+
+.steps{display:flex; gap:0; margin:34px 0; flex-wrap:wrap;}
+.step{flex:1; min-width:180px; position:relative; padding:0 18px 0 0;}
+.step:not(:last-child)::after{
+  content:"→"; position:absolute; right:-4px; top:2px; color:var(--text-faint);
+}
+@media(max-width:760px){.step:not(:last-child)::after{content:"↓"; position:static; display:block; margin:10px 0; text-align:left;}}
+.step .n{font-family:var(--mono); font-size:.75rem; color:var(--entreprise);}
+.step p{color:var(--text-dim); font-size:.88rem; margin-top:6px;}
+
+/* configurator */
+.config-box{
+  border:1px solid var(--line); border-radius:var(--radius); background:var(--surface);
+  padding:30px; margin-top:20px; display:grid; grid-template-columns:1.3fr 1fr; gap:32px;
+}
+@media(max-width:820px){.config-box{grid-template-columns:1fr;}}
+.check-row{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:12px 0; border-bottom:1px solid var(--line);
+}
+.check-row:last-child{border-bottom:none;}
+.check-row label{display:flex; align-items:center; gap:12px; cursor:pointer; font-size:.92rem;}
+.check-row input[type=checkbox]{
+  width:18px; height:18px; accent-color:var(--volt); cursor:pointer;
+}
+.check-price{font-family:var(--mono); font-size:.85rem; color:var(--text-dim);}
+.check-tag{font-family:var(--mono); font-size:.66rem; padding:2px 7px; border-radius:5px;}
+.tag-elig{color:var(--volt); border:1px solid rgba(212,255,61,.4);}
+.tag-non{color:var(--text-faint); border:1px solid var(--line);}
+
+.total-panel{
+  background:var(--surface-2); border-radius:12px; padding:22px; align-self:start;
+  position:sticky; top:90px;
+}
+.total-line{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;}
+.total-line .lbl{font-size:.82rem; color:var(--text-dim);}
+.total-line .val{font-family:var(--mono); font-size:1.3rem; font-weight:600;}
+.total-line.big .val{font-size:1.7rem; color:var(--volt);}
+.total-line.elig .val{color:var(--volt);}
+.total-line.non .val{color:var(--text-faint);}
+
+/* credit d'impot example */
+.impot-visual{
+  display:flex; align-items:center; gap:0; margin:36px 0; flex-wrap:wrap; gap:18px;
+}
+.impot-box{
+  flex:1; min-width:160px; border-radius:12px; padding:22px; text-align:center;
+  border:1px solid var(--line); background:var(--surface);
+}
+.impot-box .amt{font-family:var(--mono); font-size:1.9rem; font-weight:600;}
+.impot-box .lbl{font-size:.8rem; color:var(--text-dim); margin-top:6px;}
+.impot-arrow{font-size:1.4rem; color:var(--text-faint); flex-shrink:0;}
+.impot-box.total .amt{color:var(--text);}
+.impot-box.pay .amt{color:var(--particulier);}
+.impot-box.state .amt{color:var(--volt);}
+
+.compare-cols{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:30px 0;}
+@media(max-width:700px){.compare-cols{grid-template-columns:1fr;}}
+.compare-col{border:1px solid var(--line); border-radius:var(--radius); padding:22px; background:var(--surface);}
+.compare-col.highlight{border-color:var(--particulier); background:rgba(255,176,32,.05);}
+.compare-col .tag{font-family:var(--mono); font-size:.7rem; color:var(--text-faint);}
+.compare-col.highlight .tag{color:var(--particulier);}
+.compare-col ul{margin-top:12px; padding-left:18px; font-size:.88rem; color:var(--text-dim);}
+.compare-col li{margin-bottom:6px;}
+
+.excl-list{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+.excl-chip{
+  font-family:var(--mono); font-size:.78rem; color:var(--text-faint);
+  border:1px dashed var(--line); padding:6px 12px; border-radius:999px;
+}
+
+/* simulator */
+.sim-box{
+  border:1px solid var(--line); border-radius:var(--radius); background:var(--surface);
+  padding:32px; margin-top:24px; display:grid; grid-template-columns:1fr 1.2fr; gap:32px; align-items:center;
+}
+@media(max-width:760px){.sim-box{grid-template-columns:1fr;}}
+.sim-input label{font-size:.85rem; color:var(--text-dim); display:block; margin-bottom:10px;}
+.sim-input .field{
+  display:flex; align-items:center; border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  background:var(--surface-2);
+}
+.sim-input input[type=range]{width:100%; accent-color:var(--particulier);}
+.sim-input input[type=number]{
+  background:transparent; border:none; color:var(--text); font-family:var(--mono);
+  font-size:1.4rem; padding:12px 14px; width:100%; outline:none;
+}
+.sim-input .suffix{padding:0 16px; color:var(--text-faint); font-family:var(--mono);}
+.sim-results{display:flex; gap:16px; flex-wrap:wrap;}
+.sim-result{flex:1; min-width:140px; text-align:center; padding:18px; border-radius:12px; background:var(--surface-2);}
+.sim-result .v{font-family:var(--mono); font-size:1.6rem; font-weight:600;}
+.sim-result.pay .v{color:var(--particulier);}
+.sim-result.state .v{color:var(--volt);}
+.sim-result .l{font-size:.78rem; color:var(--text-dim); margin-top:4px;}
+
+/* about */
+.about-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:30px;}
+@media(max-width:800px){.about-grid{grid-template-columns:1fr;}}
+.info-list{list-style:none; margin-top:16px;}
+.info-list li{
+  display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line);
+  font-size:.9rem;
+}
+.info-list li span:first-child{color:var(--text-dim);}
+.info-list li span:last-child{font-family:var(--mono);}
+
+.reviews{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+@media(max-width:700px){.reviews{grid-template-columns:1fr;}}
+.review-col h4{font-size:.82rem; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); font-family:var(--mono); margin-bottom:12px;}
+.review{border:1px solid var(--line); border-radius:12px; padding:16px; background:var(--surface); margin-bottom:12px; font-size:.87rem; color:var(--text-dim);}
+.stars{color:var(--volt); font-size:.8rem; margin-bottom:6px; letter-spacing:2px;}
+
+/* contact */
+.contact-wrap{display:grid; grid-template-columns:1fr 1.3fr; gap:48px;}
+@media(max-width:860px){.contact-wrap{grid-template-columns:1fr;}}
+.role-toggle{display:flex; gap:10px; margin-bottom:26px;}
+.role-btn{
+  flex:1; padding:14px; border-radius:10px; border:1px solid var(--line); background:var(--surface);
+  color:var(--text-dim); font-family:var(--sans); font-weight:600; cursor:pointer; font-size:.9rem;
+  transition:all .2s ease;
+}
+.role-btn.active[data-role="entreprise"]{border-color:var(--entreprise); color:var(--entreprise); background:rgba(79,157,255,.08);}
+.role-btn.active[data-role="particulier"]{border-color:var(--particulier); color:var(--particulier); background:rgba(255,176,32,.08);}
+.form-grid{display:grid; gap:16px;}
+.form-grid .row2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media(max-width:520px){.form-grid .row2{grid-template-columns:1fr;}}
+.field-group label{font-size:.8rem; color:var(--text-dim); display:block; margin-bottom:7px;}
+.field-group input, .field-group textarea{
+  width:100%; background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:13px 14px; color:var(--text); font-family:var(--sans); font-size:.92rem;
+  transition:border-color .2s ease;
+}
+.field-group input:focus, .field-group textarea:focus{border-color:var(--volt); outline:none;}
+.field-group textarea{resize:vertical; min-height:110px;}
+.submit-row{display:flex; align-items:center; gap:16px; margin-top:6px;}
+.confirm-msg{
+  font-size:.85rem; color:var(--volt); font-family:var(--mono); opacity:0; transition:opacity .3s ease;
+}
+.confirm-msg.show{opacity:1;}
+.contact-side .card{margin-bottom:16px;}
+.contact-side .card h3{color:var(--text); font-size:.95rem;}
+.contact-side .card p{margin-top:4px;}
+
+/* footer */
+footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--surface);}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:40px;}
+@media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.footer-grid{grid-template-columns:1fr;}}
+.footer-grid h4{font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-faint); margin-bottom:14px;}
+.footer-grid a{display:block; color:var(--text-dim); text-decoration:none; font-size:.87rem; margin-bottom:9px; transition:color .15s ease;}
+.footer-grid a:hover{color:var(--text);}
+.footer-brand p{color:var(--text-dim); font-size:.88rem; max-width:280px; margin-top:10px;}
+.legal-disclaimer{
+  font-size:.76rem; color:var(--text-faint); border-top:1px solid var(--line); padding-top:24px;
+  line-height:1.7;
+}
+.legal-disclaimer strong{color:var(--text-dim);}
+.footer-bottom{
+  display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:10px;
+  font-size:.78rem; color:var(--text-faint); font-family:var(--mono);
+}
+
+/* utility */
+.center{text-align:center;}
+.mt-tiny{margin-top:6px;}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
+</style>
 </head>
 <body>
-  <h1>🔒 VulnAudit — prototype</h1>
-  <p style="color:#a9a9c9;font-size:13px;">
-    Démonstration du parcours : inscription → connexion → déclaration de domaine
-    → publication DNS TXT → vérification → scan → rapport. Aucun scan n'est
-    autorisé sans preuve de propriété.</p>
 
-  <div class="card">
-    <h2>1. Compte</h2>
-    <label>E-mail</label><input id="email" value="demo@exemple.fr">
-    <label>Mot de passe (≥ 8 caractères)</label><input id="password" type="password" value="motdepasse123">
-    <div class="row" style="margin-top:10px;">
-      <button onclick="register()">S'inscrire</button>
-      <button onclick="login()">Se connecter</button>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="bolt">⚡</span>Volt IA</a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#entreprises">Entreprises</a>
+      <a href="#particuliers">Particuliers</a>
+      <a href="#qui-sommes-nous">Qui sommes-nous</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+33100000000">01 00 00 00 00</a>
+      <a href="#contact" class="btn btn-volt">Demander un devis</a>
     </div>
   </div>
+</header>
 
-  <div class="card">
-    <h2>2. Domaine & propriété</h2>
-    <label>Domaine (FQDN)</label><input id="fqdn" value="exemple.fr">
-    <div class="row" style="margin-top:10px;">
-      <button onclick="declareDomain()">Déclarer</button>
-      <button onclick="verifyDomain()">Vérifier la propriété</button>
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-tag"><span class="dot"></span> Aide numérique &amp; crédit d'impôt — jusqu'à 50%</div>
+      <h1><span class="flick">Votre informatique,</span><br><span class="flick" style="animation-delay:.3s">à moitié prix.</span></h1>
+      <p class="lede">Volt IA dépanne, sécurise et digitalise <strong>entreprises</strong> et <strong>particuliers</strong>. Une partie de nos prestations est prise en charge par l'État — on vous montre exactement laquelle, avant de signer.</p>
+
+      <div class="breaker-row">
+        <button class="breaker" data-mode="entreprise" onclick="armBreaker(this,'entreprises')">
+          <span class="switch" aria-hidden="true"></span>
+          <span>
+            <span class="breaker-label">Je suis une entreprise</span>
+            <span class="breaker-sub">Cybersécurité, IA, matériel</span>
+          </span>
+          <span class="breaker-badge">Sur dossier</span>
+        </button>
+        <button class="breaker" data-mode="particulier" onclick="armBreaker(this,'particuliers')">
+          <span class="switch" aria-hidden="true"></span>
+          <span>
+            <span class="breaker-label">Je suis un particulier</span>
+            <span class="breaker-sub">Dépannage à domicile</span>
+          </span>
+          <span class="breaker-badge">50% immédiat</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENTREPRISES ============ -->
+  <section id="entreprises" class="zone-entreprise">
+    <div class="container">
+      <div class="zone-head"><span class="zone-pill">Univers entreprise</span></div>
+      <h2>Cybersécurité, IA et matériel pour votre structure</h2>
+      <p class="section-lede">Certaines de nos prestations sont éligibles à des subventions publiques allant jusqu'à 50%. Le matériel, lui, ne l'est jamais — on vous dit toujours clairement ce qui l'est ou pas.</p>
+
+      <div class="bandeau bandeau-warning">
+        <span class="ic">⚠️</span>
+        <div>
+          <strong>Les aides entreprises sont des subventions sur dossier, pas un crédit d'impôt automatique.</strong>
+          Le taux et le plafond varient selon le dispositif et votre région. Nous vous accompagnons dans le montage du dossier — l'obtention de l'aide n'est jamais garantie à 100%.
+        </div>
+      </div>
+
+      <h3 class="eyebrow" style="margin-bottom:18px;">Bloc A — Prestations éligibles à une aide</h3>
+      <div class="grid grid-3" style="margin-bottom:44px;">
+        <div class="card reveal">
+          <span class="badge badge-eligible"><span class="led"></span>Éligible aide numérique</span>
+          <h3>IA &amp; automatisation</h3>
+          <p>Intégration de solutions IA, chatbots internes, outils de gestion automatisés adaptés à votre activité.</p>
+        </div>
+        <div class="card reveal">
+          <span class="badge badge-eligible"><span class="led"></span>Éligible aide numérique</span>
+          <h3>Cybersécurité</h3>
+          <p>Antivirus professionnel, pare-feu, audit et diagnostic cyber, sauvegarde sécurisée, formation des salariés.</p>
+        </div>
+        <div class="card reveal">
+          <span class="badge badge-eligible"><span class="led"></span>Éligible aide numérique</span>
+          <h3>Diagnostic &amp; conseil</h3>
+          <p>Accompagnement au diagnostic numérique et conseil en digitalisation de vos process.</p>
+        </div>
+        <div class="card reveal">
+          <span class="badge badge-eligible"><span class="led"></span>Éligible aide numérique</span>
+          <h3>Formation des équipes</h3>
+          <p>Formation des salariés aux outils numériques et aux bons réflexes de cybersécurité.</p>
+        </div>
+      </div>
+
+      <h3 class="eyebrow" style="margin-bottom:18px;">Bloc B — Vente de matériel</h3>
+      <div class="grid grid-3">
+        <div class="card reveal">
+          <span class="badge badge-non"><span class="led"></span>Non éligible — matériel</span>
+          <h3>Postes de travail</h3>
+          <p>Ordinateurs, portables, écrans et stations de travail.</p>
+          <p class="note">Une installation vendue à part reste éligible et apparaît sur une ligne de facture distincte.</p>
+        </div>
+        <div class="card reveal">
+          <span class="badge badge-non"><span class="led"></span>Non éligible — matériel</span>
+          <h3>Imprimantes &amp; périphériques</h3>
+          <p>Imprimantes, scanners et accessoires.</p>
+          <p class="note">La configuration de l'imprimante, elle, est éligible si facturée séparément.</p>
+        </div>
+        <div class="card reveal">
+          <span class="badge badge-non"><span class="led"></span>Non éligible — matériel</span>
+          <h3>Réseaux &amp; câblage</h3>
+          <p>Switchs, routeurs, câblage et consommables.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:70px;">
+        <h3 class="eyebrow" style="margin-bottom:10px;">Aides &amp; subventions</h3>
+        <h2>Comment ça marche, concrètement</h2>
+        <div class="steps">
+          <div class="step"><span class="n">01</span><p>Vous réalisez la prestation éligible et réglez la facture normalement.</p></div>
+          <div class="step"><span class="n">02</span><p>Nous vous aidons à monter le dossier avec les justificatifs nécessaires.</p></div>
+          <div class="step"><span class="n">03</span><p>Le dispositif choisi rembourse jusqu'à 50% sur présentation du dossier.</p></div>
+        </div>
+
+        <p class="section-lede" style="margin-bottom:20px;">Dispositifs mobilisables selon votre situation — à vérifier au cas par cas :</p>
+        <div class="disp-list">
+          <div class="disp"><span class="n">Bpifrance / régional</span>Diag Cybersécurité</div>
+          <div class="disp"><span class="n">Île-de-France</span>Aide IA pour PME/ETI</div>
+          <div class="disp"><span class="n">National</span>Fonds d'aide aux TPE — investissement digital</div>
+          <div class="disp"><span class="n">Local</span>Dispositifs régionaux selon votre commune</div>
+        </div>
+        <a href="#contact" class="btn btn-ghost" style="margin-top:28px;" onclick="setRole('entreprise')">Vérifier mon éligibilité →</a>
+      </div>
+
+      <div style="margin-top:80px;">
+        <h3 class="eyebrow" style="margin-bottom:10px;">Configurateur</h3>
+        <h2>Estimez votre devis en direct</h2>
+        <p class="section-lede">Cochez ce dont vous avez besoin : le montant éligible et le montant matériel s'affichent séparément, en temps réel.</p>
+        <div class="config-box">
+          <div id="configList">
+            <!-- rows injected by JS -->
+          </div>
+          <div class="total-panel">
+            <div class="total-line big"><span class="lbl">Total devis</span><span class="val" id="cfgTotal">0 €</span></div>
+            <div class="total-line elig"><span class="lbl">🟢 Potentiellement éligible</span><span class="val" id="cfgElig">0 €</span></div>
+            <div class="total-line non"><span class="lbl">⚪ Non éligible (matériel)</span><span class="val" id="cfgNon">0 €</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARTICULIERS ============ -->
+  <section id="particuliers" class="zone-particulier">
+    <div class="container">
+      <div class="zone-head"><span class="zone-pill">Univers particulier</span></div>
+      <h2>Le dépannage à domicile, à moitié payé</h2>
+      <p class="section-lede">Toutes nos prestations de dépannage à domicile sont éligibles au crédit d'impôt services à la personne — sans attendre l'année suivante.</p>
+
+      <div class="bandeau bandeau-ok">
+        <span class="ic">✅</span>
+        <div>
+          <strong>Le dépannage informatique à domicile est éligible au crédit d'impôt (50%).</strong>
+          Avec l'Avance Immédiate, vous ne payez que la moitié de la facture : le reste est réglé directement par l'Urssaf.
+          <span class="sap-tag">N° de déclaration SAP : [SAP-XXXXXXXXX] — Zone d'intervention : 93 et départements limitrophes</span>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card reveal"><span class="badge badge-50"><span class="led"></span>50% pris en charge</span><h3>Dépannage PC / Mac</h3><p>Lenteur, panne, écran bleu, problème logiciel.</p></div>
+        <div class="card reveal"><span class="badge badge-50"><span class="led"></span>50% pris en charge</span><h3>Virus &amp; nettoyage</h3><p>Suppression de virus et nettoyage complet du système.</p></div>
+        <div class="card reveal"><span class="badge badge-50"><span class="led"></span>50% pris en charge</span><h3>Internet &amp; Wi-Fi</h3><p>Configuration de votre box et de votre réseau domestique.</p></div>
+        <div class="card reveal"><span class="badge badge-50"><span class="led"></span>50% pris en charge</span><h3>Initiation numérique</h3><p>Prise en main d'un ordinateur, smartphone ou tablette.</p></div>
+        <div class="card reveal"><span class="badge badge-50"><span class="led"></span>50% pris en charge</span><h3>Sauvegarde de données</h3><p>Transfert et sauvegarde de vos photos, contacts et documents.</p></div>
+        <div class="card reveal"><span class="badge badge-50"><span class="led"></span>50% pris en charge</span><h3>Démarches en ligne</h3><p>Aide aux démarches impôts, CAF, sécurité sociale.</p><p class="note">Configuration d'imprimante : la prestation est éligible, l'appareil vendu ne l'est pas.</p></div>
+      </div>
+
+      <div style="margin-top:80px;">
+        <h3 class="eyebrow" style="margin-bottom:10px;">Crédit d'impôt 50%</h3>
+        <h2>Un exemple vaut mieux qu'un long discours</h2>
+
+        <div class="impot-visual">
+          <div class="impot-box total"><div class="amt" data-count="50">0€</div><div class="lbl">Montant de la facture</div></div>
+          <div class="impot-arrow">→</div>
+          <div class="impot-box pay"><div class="amt" data-count="25">0€</div><div class="lbl">Vous payez</div></div>
+          <div class="impot-box state"><div class="amt" data-count="25">0€</div><div class="lbl">Versé par l'Urssaf</div></div>
+        </div>
+
+        <div class="compare-cols">
+          <div class="compare-col">
+            <span class="tag">Déclaration classique</span>
+            <h3 style="margin-top:8px;">Remboursement différé</h3>
+            <ul>
+              <li>Vous avancez 100% de la facture</li>
+              <li>Le crédit d'impôt arrive l'année suivante</li>
+            </ul>
+          </div>
+          <div class="compare-col highlight">
+            <span class="tag">Avance Immédiate</span>
+            <h3 style="margin-top:8px;">Remboursement immédiat</h3>
+            <ul>
+              <li>Vous ne payez que 50% dès la facture</li>
+              <li>Le reste est réglé automatiquement par l'Urssaf</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="color:var(--text-dim); font-size:.9rem;">Plafond de 3 000 €/an pour l'assistance informatique, dans le plafond global de 12 000 € (pouvant aller à 15 000 € ou 20 000 € selon votre situation).</p>
+        <p style="color:var(--text-dim); font-size:.9rem; margin-top:10px;">Sont exclus du dispositif :</p>
+        <div class="excl-list">
+          <span class="excl-chip">Hi-fi</span>
+          <span class="excl-chip">Téléviseurs</span>
+          <span class="excl-chip">Consoles de jeu</span>
+          <span class="excl-chip">GPS</span>
+          <span class="excl-chip">Matériel vendu</span>
+        </div>
+      </div>
+
+      <div style="margin-top:80px;">
+        <h3 class="eyebrow" style="margin-bottom:10px;">Simulateur</h3>
+        <h2>Combien vous reste-t-il à payer ?</h2>
+        <div class="sim-box">
+          <div class="sim-input">
+            <label for="simAmount">Montant de la prestation</label>
+            <div class="field">
+              <input type="number" id="simAmount" value="80" min="0" max="3000" oninput="updateSim(this.value); document.getElementById('simRange').value=this.value;">
+              <span class="suffix">€</span>
+            </div>
+            <input type="range" id="simRange" min="0" max="500" value="80" oninput="updateSim(this.value); document.getElementById('simAmount').value=this.value;" style="margin-top:16px;">
+          </div>
+          <div class="sim-results">
+            <div class="sim-result pay"><div class="v" id="simPay">40 €</div><div class="l">Vous payez</div></div>
+            <div class="sim-result state"><div class="v" id="simState">40 €</div><div class="l">Pris en charge par l'État</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUI SOMMES-NOUS ============ -->
+  <section id="qui-sommes-nous">
+    <div class="container">
+      <span class="eyebrow" style="margin-bottom:10px;">Qui sommes-nous</span>
+      <h2>Une équipe locale, agréée, joignable</h2>
+      <div class="about-grid">
+        <div>
+          <p class="section-lede" style="margin-bottom:0;">Volt IA intervient auprès des entreprises et des particuliers avec les agréments nécessaires pour que vous bénéficiiez sereinement des aides publiques.</p>
+          <ul class="info-list">
+            <li><span>SIRET</span><span>[XXX XXX XXX XXXXX]</span></li>
+            <li><span>N° déclaration SAP</span><span>[SAP-XXXXXXXXX]</span></li>
+            <li><span>Zone d'intervention</span><span>93 + départements limitrophes</span></li>
+            <li><span>Disponibilité</span><span>Lun–Sam, 9h–19h</span></li>
+          </ul>
+        </div>
+        <div class="reviews">
+          <div class="review-col">
+            <h4>Avis entreprises</h4>
+            <div class="review"><div class="stars">★★★★★</div>Diagnostic cyber clair, dossier de subvention monté avec nous du début à la fin.</div>
+            <div class="review"><div class="stars">★★★★★</div>Intégration d'un outil IA interne sans interrompre notre activité une seule journée.</div>
+          </div>
+          <div class="review-col">
+            <h4>Avis particuliers</h4>
+            <div class="review"><div class="stars">★★★★★</div>Je n'ai payé que la moitié de la facture grâce à l'Avance Immédiate, tout était expliqué à l'avance.</div>
+            <div class="review"><div class="stars">★★★★★</div>Intervention rapide pour un problème de virus, très pédagogue avec mes parents.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" style="border-top:1px solid var(--line);">
+    <div class="container">
+      <span class="eyebrow" style="margin-bottom:10px;">Contact</span>
+      <h2>Parlons de votre besoin</h2>
+      <p class="section-lede">Un formulaire, deux univers : dites-nous qui vous êtes pour qu'on vous réponde avec les bons interlocuteurs.</p>
+
+      <div class="contact-wrap">
+        <div>
+          <div class="role-toggle">
+            <button class="role-btn active" data-role="particulier" onclick="setRole('particulier')">Je suis un particulier</button>
+            <button class="role-btn" data-role="entreprise" onclick="setRole('entreprise')">Je suis une entreprise</button>
+          </div>
+          <form class="form-grid" onsubmit="return submitForm(event)">
+            <input type="hidden" id="roleField" value="particulier">
+            <div class="row2">
+              <div class="field-group"><label for="fname">Nom</label><input id="fname" type="text" required></div>
+              <div class="field-group"><label for="fphone">Téléphone</label><input id="fphone" type="tel" required></div>
+            </div>
+            <div class="field-group"><label for="femail">E-mail</label><input id="femail" type="email" required></div>
+            <div class="field-group"><label for="fmsg">Votre besoin</label><textarea id="fmsg" placeholder="Décrivez votre situation en quelques mots…"></textarea></div>
+            <div class="submit-row">
+              <button type="submit" class="btn btn-volt">Envoyer ma demande</button>
+              <span class="confirm-msg" id="confirmMsg">✓ Demande envoyée, on vous rappelle vite.</span>
+            </div>
+          </form>
+        </div>
+        <div class="contact-side">
+          <div class="card">
+            <h3>☎ Par téléphone</h3>
+            <p>01 00 00 00 00 — Lun–Sam, 9h–19h</p>
+          </div>
+          <div class="card">
+            <h3>✉ Par e-mail</h3>
+            <p>contact@volt-ia.fr</p>
+          </div>
+          <div class="card">
+            <h3>📍 Zone d'intervention</h3>
+            <p>Seine-Saint-Denis (93) et départements limitrophes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo"><span class="bolt">⚡</span>Volt IA</a>
+        <p>Informatique pour entreprises et particuliers, avec les aides publiques expliquées simplement.</p>
+      </div>
+      <div>
+        <h4>Entreprises</h4>
+        <a href="#entreprises">Catalogue</a>
+        <a href="#entreprises">Aides &amp; subventions</a>
+      </div>
+      <div>
+        <h4>Particuliers</h4>
+        <a href="#particuliers">Dépannage</a>
+        <a href="#particuliers">Crédit d'impôt 50%</a>
+      </div>
+      <div>
+        <h4>Volt IA</h4>
+        <a href="#qui-sommes-nous">Qui sommes-nous</a>
+        <a href="#contact">Contact</a>
+        <a href="#mentions">Mentions légales / CGV</a>
+      </div>
+    </div>
+    <div class="legal-disclaimer" id="mentions">
+      <strong>Mentions légales :</strong> Volt IA — SIRET [XXX XXX XXX XXXXX] — Déclaration SAP n°[SAP-XXXXXXXXX] — Zone de chalandise : 93 et départements limitrophes.
+      Les taux et plafonds indiqués sur ce site sont donnés à titre indicatif et peuvent évoluer selon la réglementation en vigueur. Contactez-nous pour vérifier votre éligibilité.
+      Pour les entreprises, les aides publiques sont des subventions accordées sur dossier et ne sont jamais garanties. Pour les particuliers, le crédit d'impôt s'applique aux seules prestations de service, jamais au matériel vendu.
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Volt IA — Tous droits réservés</span>
+      <span>Site conçu pour informer, jamais pour induire en erreur.</span>
     </div>
   </div>
-
-  <div class="card">
-    <h2>3. Scan & rapport</h2>
-    <div class="row">
-      <button onclick="launchScan()">Lancer un scan</button>
-      <button onclick="refreshScan()">Rafraîchir le statut</button>
-      <button onclick="openReport()">Ouvrir le rapport HTML</button>
-    </div>
-  </div>
-
-  <h2>Journal</h2>
-  <pre id="log">Prêt.</pre>
+</footer>
 
 <script>
-// URL de l'API. En Docker, le navigateur accède à l'API via localhost:8000.
-const API = (location.hostname ? `http://${location.hostname}:8000` : "http://localhost:8000");
-let token = null, domainId = null, scanId = null;
-
-function log(x){ document.getElementById('log').textContent =
-  (typeof x === 'string' ? x : JSON.stringify(x, null, 2)) + "\n\n" +
-  document.getElementById('log').textContent; }
-
-async function api(path, opts={}) {
-  opts.headers = Object.assign({}, opts.headers || {},
-    token ? { Authorization: "Bearer " + token } : {});
-  const r = await fetch(API + path, opts);
-  const body = await r.text();
-  let data; try { data = JSON.parse(body); } catch { data = body; }
-  if (!r.ok) log({ erreur: r.status, detail: data });
-  return { ok: r.ok, status: r.status, data };
+/* ===== Breaker / hero scroll ===== */
+function armBreaker(btn, targetId){
+  document.querySelectorAll('.breaker').forEach(b => b.classList.remove('armed'));
+  btn.classList.add('armed');
+  document.getElementById(targetId).scrollIntoView({behavior:'smooth', block:'start'});
+  setRole(btn.dataset.mode);
 }
 
-async function register(){
-  const r = await api("/auth/register", { method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ email: email.value, password: password.value }) });
-  if (r.ok) log("Compte créé : " + email.value);
+/* ===== Reveal on scroll ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+}, {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ===== Animated numbers (crédit d'impôt example) ===== */
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const el = e.target;
+      const target = parseInt(el.dataset.count, 10);
+      let cur = 0;
+      const step = Math.max(1, Math.round(target/30));
+      const tick = () => {
+        cur += step;
+        if(cur >= target){ el.textContent = target + '€'; return; }
+        el.textContent = cur + '€';
+        requestAnimationFrame(tick);
+      };
+      tick();
+      countObserver.unobserve(el);
+    }
+  });
+}, {threshold:.4});
+document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+/* ===== Particulier simulator ===== */
+function updateSim(val){
+  const amount = Math.max(0, Math.min(3000, Number(val) || 0));
+  const pay = amount / 2;
+  const state = amount / 2;
+  document.getElementById('simPay').textContent = pay.toFixed(2).replace('.00','') + ' €';
+  document.getElementById('simState').textContent = state.toFixed(2).replace('.00','') + ' €';
 }
-async function login(){
-  const form = new URLSearchParams({ username: email.value, password: password.value });
-  const r = await api("/auth/login", { method:"POST",
-    headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body: form });
-  if (r.ok){ token = r.data.access_token; log("Connecté. Jeton obtenu."); }
+updateSim(80);
+
+/* ===== Entreprise configurator ===== */
+const CONFIG_ITEMS = [
+  {label:'Poste de travail complet', price:900, eligible:false},
+  {label:'Installation / configuration du poste', price:120, eligible:true},
+  {label:'Antivirus professionnel (par poste)', price:60, eligible:true},
+  {label:'Audit / diagnostic cybersécurité', price:450, eligible:true},
+  {label:'Formation cybersécurité des salariés', price:600, eligible:true},
+  {label:'Intégration chatbot / outil IA', price:1200, eligible:true},
+  {label:'Imprimante réseau', price:350, eligible:false},
+  {label:'Câblage / switch réseau', price:400, eligible:false},
+];
+const listEl = document.getElementById('configList');
+CONFIG_ITEMS.forEach((item, i) => {
+  const row = document.createElement('div');
+  row.className = 'check-row';
+  row.innerHTML = `
+    <label>
+      <input type="checkbox" data-price="${item.price}" data-eligible="${item.eligible}" onchange="recalcConfig()">
+      ${item.label}
+      <span class="check-tag ${item.eligible ? 'tag-elig' : 'tag-non'}">${item.eligible ? '🟢 éligible' : '⚪ matériel'}</span>
+    </label>
+    <span class="check-price">${item.price} €</span>
+  `;
+  listEl.appendChild(row);
+});
+function recalcConfig(){
+  let total = 0, elig = 0, non = 0;
+  document.querySelectorAll('#configList input[type=checkbox]:checked').forEach(cb => {
+    const price = Number(cb.dataset.price);
+    total += price;
+    if(cb.dataset.eligible === 'true') elig += price; else non += price;
+  });
+  document.getElementById('cfgTotal').textContent = total.toLocaleString('fr-FR') + ' €';
+  document.getElementById('cfgElig').textContent = elig.toLocaleString('fr-FR') + ' €';
+  document.getElementById('cfgNon').textContent = non.toLocaleString('fr-FR') + ' €';
 }
-async function declareDomain(){
-  const r = await api("/domains", { method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ fqdn: fqdn.value }) });
-  if (r.ok){ domainId = r.data.id;
-    log("Domaine déclaré. PUBLIEZ CE TXT DNS :\n" +
-        r.data.verification_record_value + "\n" + r.data.instructions); }
+
+/* ===== Contact role toggle ===== */
+function setRole(role){
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.toggle('active', b.dataset.role === role));
+  document.getElementById('roleField').value = role;
+  document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'start'});
 }
-async function verifyDomain(){
-  const r = await api(`/domains/${domainId}/verify`, { method:"POST" });
-  if (r.ok) log("Propriété vérifiée ✔ — scans autorisés.");
+document.querySelectorAll('.role-btn').forEach(b => {
+  b.addEventListener('click', () => setRole(b.dataset.role));
+});
+
+/* ===== Fake form submit ===== */
+function submitForm(e){
+  e.preventDefault();
+  const msg = document.getElementById('confirmMsg');
+  msg.classList.add('show');
+  e.target.reset();
+  setTimeout(() => msg.classList.remove('show'), 5000);
+  return false;
 }
-async function launchScan(){
-  const r = await api(`/domains/${domainId}/scans`, { method:"POST" });
-  if (r.ok){ scanId = r.data.id; log("Scan lancé (id " + scanId + "), statut: " + r.data.status); }
-}
-async function refreshScan(){
-  const r = await api(`/scans/${scanId}`);
-  if (r.ok) log(r.data);
-}
-function openReport(){
-  // Le rapport exige le jeton ; on le télécharge avec l'en-tête puis on l'affiche.
-  fetch(`${API}/scans/${scanId}/report.html`, { headers:{ Authorization:"Bearer "+token }})
-    .then(r => r.text()).then(html => {
-      const w = window.open("", "_blank"); w.document.write(html); w.document.close();
-    });
-}
+
+/* ===== Mobile nav (simple anchor menu fallback) ===== */
 </script>
+
 </body>
 </html>
