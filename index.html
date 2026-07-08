@@ -32,8 +32,6 @@
     "postalCode": "93400",
     "addressCountry": "FR"
   },
-  "priceRange": "€€",
-  "openingHours": "Mo-Sa 09:00-19:00",
   "makesOffer": [
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Intégration IA & automatisation en entreprise" } },
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cybersécurité et audit pour PME" } },
@@ -307,7 +305,6 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-cta">
-      <a class="nav-phone" href="tel:+33100000000">01 00 00 00 00</a>
       <a href="#contact" class="btn btn-primary">Demander un devis</a>
     </div>
   </div>
@@ -341,11 +338,11 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
           <button class="invoice-tab" data-tab="particulier" onclick="switchInvoiceTab('particulier')" type="button">Particulier</button>
         </div>
         <div class="invoice-top"><span>Facture</span><span>Volt IA</span></div>
-        <div class="invoice-amount" id="invAmount">900€</div>
-        <div class="invoice-label" id="invLabel">Audit cybersécurité entreprise</div>
+        <div class="invoice-amount" id="invAmount">Jusqu'à 50%</div>
+        <div class="invoice-label" id="invLabel">Pris en charge sur vos prestations éligibles</div>
         <div class="invoice-split">
-          <div class="invoice-half you"><div class="v" id="invYou">900€</div><div class="l" id="invYouLabel">Réglé à la facturation</div></div>
-          <div class="invoice-half state"><div class="v" id="invState">450€</div><div class="l" id="invStateLabel">Subvention potentielle</div></div>
+          <div class="invoice-half you"><div class="v" id="invYou">50%</div><div class="l" id="invYouLabel">Reste à votre charge</div></div>
+          <div class="invoice-half state"><div class="v" id="invState">50%</div><div class="l" id="invStateLabel">Potentiellement pris en charge</div></div>
         </div>
       </div>
     </div>
@@ -406,9 +403,10 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
         <div class="config-box">
           <div id="configList"></div>
           <div class="total-panel">
-            <div class="total-line big"><span class="lbl">Total devis</span><span class="val" id="cfgTotal">0 €</span></div>
-            <div class="total-line elig"><span class="lbl">Potentiellement éligible</span><span class="val" id="cfgElig">0 €</span></div>
-            <div class="total-line non"><span class="lbl">Non éligible (matériel)</span><span class="val" id="cfgNon">0 €</span></div>
+            <div class="total-line big"><span class="lbl">Besoins sélectionnés</span><span class="val" id="cfgCount">0</span></div>
+            <div class="total-line elig"><span class="lbl">Dont potentiellement éligibles</span><span class="val" id="cfgElig">0</span></div>
+            <div class="total-line non"><span class="lbl">Dont matériel (non éligible)</span><span class="val" id="cfgNon">0</span></div>
+            <a href="#contact" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" onclick="prefillFromConfig()">Recevoir un devis personnalisé →</a>
           </div>
         </div>
       </div>
@@ -427,7 +425,7 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
         <div>
           <strong>Le dépannage informatique à domicile est éligible au crédit d'impôt (50%).</strong>
           Avec l'Avance Immédiate, vous ne payez que la moitié de la facture : le reste est réglé directement par l'Urssaf.
-          <span class="sap-tag">N° de déclaration SAP : [SAP-XXXXXXXXX] — Zone d'intervention : 93 et départements limitrophes</span>
+          <span class="sap-tag">Zone d'intervention : Île-de-France et départements limitrophes</span>
         </div>
       </div>
 
@@ -489,10 +487,8 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
         <div>
           <p class="lede" style="margin-bottom:0;">Volt IA intervient auprès des entreprises et des particuliers de Seine-Saint-Denis et d'Île-de-France, avec les agréments nécessaires pour bénéficier sereinement des aides publiques.</p>
           <ul class="info-list">
-            <li><span>SIRET</span><span>[XXX XXX XXX XXXXX]</span></li>
-            <li><span>N° déclaration SAP</span><span>[SAP-XXXXXXXXX]</span></li>
-            <li><span>Zone d'intervention</span><span>93 + départements limitrophes</span></li>
-            <li><span>Disponibilité</span><span>Lun–Sam, 9h–19h</span></li>
+            <li><span>Zone d'intervention</span><span>Île-de-France</span></li>
+            <li><span>Prise en charge</span><span>Devis sous 48h</span></li>
           </ul>
         </div>
         <div class="reviews">
@@ -539,9 +535,9 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
           </form>
         </div>
         <div class="contact-side">
-          <div class="card"><h3>☎ Par téléphone</h3><p>01 00 00 00 00 — Lun–Sam, 9h–19h</p></div>
-          <div class="card"><h3>✉ Par e-mail</h3><p>contact@volt-ia.fr</p></div>
-          <div class="card"><h3>📍 Zone d'intervention</h3><p>Seine-Saint-Denis (93) et départements limitrophes</p></div>
+          <div class="card"><h3>📩 Réponse rapide</h3><p>Chaque demande est traitée sous 48h par notre équipe.</p></div>
+          <div class="card"><h3>🎯 Sans engagement</h3><p>On qualifie votre besoin avant de vous proposer un devis.</p></div>
+          <div class="card"><h3>📍 Zone d'intervention</h3><p>Île-de-France et départements limitrophes</p></div>
         </div>
       </div>
     </div>
@@ -561,8 +557,7 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
       <div><h4>Volt IA</h4><a href="#qui-sommes-nous">Qui sommes-nous</a><a href="#contact">Contact</a><a href="#mentions">Mentions légales / CGV</a></div>
     </div>
     <div class="legal-disclaimer" id="mentions">
-      <strong>Mentions légales :</strong> Volt IA — SIRET [XXX XXX XXX XXXXX] — Déclaration SAP n°[SAP-XXXXXXXXX] — Zone de chalandise : 93 et départements limitrophes.
-      Les taux et plafonds indiqués sur ce site sont donnés à titre indicatif et peuvent évoluer selon la réglementation en vigueur. Contactez-nous pour vérifier votre éligibilité.
+      <strong>Mentions légales :</strong> Les taux et plafonds indiqués sur ce site sont donnés à titre indicatif et peuvent évoluer selon la réglementation en vigueur. Contactez-nous pour vérifier votre éligibilité.
       Pour les entreprises, les aides publiques sont des subventions accordées sur dossier et ne sont jamais garanties. Pour les particuliers, le crédit d'impôt s'applique aux seules prestations de service, jamais au matériel vendu.
     </div>
     <div class="footer-bottom">
@@ -575,8 +570,8 @@ footer{padding:60px 0 30px; border-top:1px solid var(--line); background:var(--p
 <script>
 /* ===== Hero invoice tab switch ===== */
 const INVOICE_DATA = {
-  entreprise: { amount:'900€', label:'Audit cybersécurité entreprise', you:'900€', youLabel:'Réglé à la facturation', state:'450€', stateLabel:'Subvention potentielle (50%)' },
-  particulier: { amount:'80€', label:'Dépannage informatique à domicile', you:'40€', youLabel:'Vous payez', state:'40€', stateLabel:'Pris en charge par l\'État' }
+  entreprise: { amount:"Jusqu'à 50%", label:'Sur vos prestations éligibles (audit, IA, formation…)', you:'50%', youLabel:'Reste à votre charge', state:'50%', stateLabel:'Subvention potentielle' },
+  particulier: { amount:'50%', label:'Dépannage informatique à domicile', you:'50%', youLabel:'Vous payez', state:'50%', stateLabel:"Pris en charge par l'État" }
 };
 function switchInvoiceTab(tab){
   document.querySelectorAll('.invoice-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
@@ -623,39 +618,45 @@ updateSim(80);
 
 /* ===== Entreprise configurator ===== */
 const CONFIG_ITEMS = [
-  {label:'Poste de travail complet', price:900, eligible:false},
-  {label:'Installation / configuration du poste', price:120, eligible:true},
-  {label:'Antivirus professionnel (par poste)', price:60, eligible:true},
-  {label:'Audit / diagnostic cybersécurité', price:450, eligible:true},
-  {label:'Formation cybersécurité des salariés', price:600, eligible:true},
-  {label:'Intégration chatbot / outil IA', price:1200, eligible:true},
-  {label:'Imprimante réseau', price:350, eligible:false},
-  {label:'Câblage / switch réseau', price:400, eligible:false},
+  {label:'Poste de travail complet', eligible:false},
+  {label:'Installation / configuration du poste', eligible:true},
+  {label:'Antivirus professionnel (par poste)', eligible:true},
+  {label:'Audit / diagnostic cybersécurité', eligible:true},
+  {label:'Formation cybersécurité des salariés', eligible:true},
+  {label:'Intégration chatbot / outil IA', eligible:true},
+  {label:'Imprimante réseau', eligible:false},
+  {label:'Câblage / switch réseau', eligible:false},
 ];
 const listEl = document.getElementById('configList');
-CONFIG_ITEMS.forEach((item) => {
+CONFIG_ITEMS.forEach((item, i) => {
   const row = document.createElement('div');
   row.className = 'check-row';
   row.innerHTML = `
     <label>
-      <input type="checkbox" data-price="${item.price}" data-eligible="${item.eligible}" onchange="recalcConfig()">
+      <input type="checkbox" data-label="${item.label}" data-eligible="${item.eligible}" onchange="recalcConfig()">
       ${item.label}
-      <span class="check-tag ${item.eligible ? 'tag-elig' : 'tag-non'}">${item.eligible ? 'éligible' : 'matériel'}</span>
     </label>
-    <span class="check-price">${item.price} €</span>
+    <span class="check-tag ${item.eligible ? 'tag-elig' : 'tag-non'}">${item.eligible ? 'éligible' : 'matériel'}</span>
   `;
   listEl.appendChild(row);
 });
 function recalcConfig(){
-  let total = 0, elig = 0, non = 0;
+  let count = 0, elig = 0, non = 0;
   document.querySelectorAll('#configList input[type=checkbox]:checked').forEach(cb => {
-    const price = Number(cb.dataset.price);
-    total += price;
-    if(cb.dataset.eligible === 'true') elig += price; else non += price;
+    count++;
+    if(cb.dataset.eligible === 'true') elig++; else non++;
   });
-  document.getElementById('cfgTotal').textContent = total.toLocaleString('fr-FR') + ' €';
-  document.getElementById('cfgElig').textContent = elig.toLocaleString('fr-FR') + ' €';
-  document.getElementById('cfgNon').textContent = non.toLocaleString('fr-FR') + ' €';
+  document.getElementById('cfgCount').textContent = count;
+  document.getElementById('cfgElig').textContent = elig;
+  document.getElementById('cfgNon').textContent = non;
+}
+function prefillFromConfig(){
+  const selected = Array.from(document.querySelectorAll('#configList input[type=checkbox]:checked')).map(cb => cb.dataset.label);
+  if(selected.length){
+    const msgField = document.getElementById('fmsg');
+    msgField.value = "Besoins identifiés : " + selected.join(', ') + ".";
+  }
+  setRole('entreprise');
 }
 
 /* ===== Contact role toggle ===== */
@@ -671,7 +672,7 @@ function setRole(role){
    2. Colle le script fourni séparément et déploie en "Application Web"
    3. Remplace l'URL ci-dessous par l'URL de déploiement obtenue
    ===================================================================== */
-const GOOGLE_SHEET_WEBAPP_URL = "COLLEZ_ICI_VOTRE_URL_APPS_SCRIPT";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxfumg_2OfG1aWqTHalq6R4yszqBblN7kzxvmoqZrLvdVQgxHL44Q1u5E_0cC5UEL7LKA/exec";
 
 function submitForm(e){
   e.preventDefault();
@@ -687,7 +688,7 @@ function submitForm(e){
     besoin: document.getElementById('fmsg').value,
   };
 
-  if(!GOOGLE_SHEET_WEBAPP_URL || GOOGLE_SHEET_WEBAPP_URL.indexOf("https://script.google.com/macros/s/AKfycbxfumg_2OfG1aWqTHalq6R4yszqBblN7kzxvmoqZrLvdVQgxHL44Q1u5E_0cC5UEL7LKA/exec") !== -1){
+  if(!GOOGLE_SHEET_WEBAPP_URL || GOOGLE_SHEET_WEBAPP_URL.indexOf("COLLEZ_ICI") !== -1){
     // URL pas encore configurée : on affiche quand même la confirmation
     msg.classList.add('show');
     form.reset();
