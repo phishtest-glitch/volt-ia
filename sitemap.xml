@@ -6,23 +6,38 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.aide-informatique.online/#entreprises</loc>
+    <loc>https://www.aide-informatique.online/firewall-entreprise.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.aide-informatique.online/aide-etat-informatique.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.aide-informatique.online/integration-ia-entreprise.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.aide-informatique.online/blog/aide-etat-firewall-entreprise.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.aide-informatique.online/#entreprises</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aide-informatique.online/#particuliers</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.aide-informatique.online/#qui-sommes-nous</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aide-informatique.online/#contact</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 </urlset>
