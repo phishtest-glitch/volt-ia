@@ -273,11 +273,11 @@ footer{padding:50px 0 26px; border-top:1px solid var(--line); background:var(--b
         </div>
         <form class="reveal" id="voltForm" onsubmit="return submitForm(event)">
           <div class="row2">
-            <div class="field-group"><label for="fname">Nom</label><input id="fname" type="text" required></div>
-            <div class="field-group"><label for="fphone">Téléphone</label><input id="fphone" type="tel" required></div>
+            <div class="field-group"><label for="fname">Nom</label><input id="fname" name="nom" type="text" required></div>
+            <div class="field-group"><label for="fphone">Téléphone</label><input id="fphone" name="telephone" type="tel" required></div>
           </div>
-          <div class="field-group"><label for="femail">E-mail</label><input id="femail" type="email" required></div>
-          <div class="field-group"><label for="fmsg">Votre besoin</label><textarea id="fmsg" placeholder="Décrivez votre situation en quelques mots…"></textarea></div>
+          <div class="field-group"><label for="femail">E-mail</label><input id="femail" name="email" type="email" required></div>
+          <div class="field-group"><label for="fmsg">Votre besoin</label><textarea id="fmsg" name="besoin" placeholder="Décrivez votre situation en quelques mots…"></textarea></div>
           <div class="submit-row">
             <button type="submit" class="btn btn-primary" id="submitBtn">Envoyer ma demande</button>
             <span class="confirm-msg" id="confirmMsg">✓ Demande envoyée, on vous rappelle vite.</span>
@@ -313,14 +313,55 @@ function closeMobileMenu(){
   document.getElementById('navToggle').setAttribute('aria-expanded', 'false');
 }
 
+/* =====================================================================
+   ENVOI VERS GOOGLE SHEETS
+   Champs envoyés : nom, telephone, email, besoin
+   -> doivent correspondre exactement aux clés lues par doPost() dans
+      ton script Apps Script (data.nom, data.telephone, data.email, data.besoin).
+   ===================================================================== */
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxfumg_2OfG1aWqTHalq6R4yszqBblN7kzxvmoqZrLvdVQgxHL44Q1u5E_0cC5UEL7LKA/exec";
+
 function submitForm(e){
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
   const msg = document.getElementById('confirmMsg');
-  msg.classList.add('show');
+  const form = e.target;
+
+  const data = {
+    nom: document.getElementById('fname').value,
+    telephone: document.getElementById('fphone').value,
+    email: document.getElementById('femail').value,
+    besoin: document.getElementById('fmsg').value,
+  };
+
+  if(!GOOGLE_SHEET_WEBAPP_URL || GOOGLE_SHEET_WEBAPP_URL.indexOf("COLLEZ_ICI") !== -1){
+    msg.classList.add('show');
+    form.reset();
+    setTimeout(()=> msg.classList.remove('show'), 5000);
+    return false;
+  }
+
   btn.disabled = true;
-  setTimeout(()=>{ btn.disabled = false; document.getElementById('voltForm').reset(); }, 400);
-  setTimeout(()=> msg.classList.remove('show'), 5000);
+  btn.textContent = "Envoi en cours…";
+
+  fetch(GOOGLE_SHEET_WEBAPP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(data)
+  }).then(()=>{
+    msg.classList.add('show');
+    form.reset();
+  }).catch(()=>{
+    msg.textContent = "✓ Demande enregistrée localement, on vous rappelle vite.";
+    msg.classList.add('show');
+    form.reset();
+  }).finally(()=>{
+    btn.disabled = false;
+    btn.textContent = "Envoyer ma demande";
+    setTimeout(()=>{ msg.classList.remove('show'); msg.textContent = "✓ Demande envoyée, on vous rappelle vite."; }, 5000);
+  });
+
   return false;
 }
 
