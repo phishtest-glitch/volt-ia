@@ -1,762 +1,217 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infogérance & Cybersécurité PME Île-de-France | Audit gratuit, EDR, IA</title>
-<meta name="description" content="Infogérance, cybersécurité et intégration IA pour TPE/PME en Île-de-France. Packs EDR, pentest, formation phishing, chatbots IA sur-mesure. Aides de l'État jusqu'à 50%.">
-<meta name="robots" content="index, follow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aide Informatique – Dépannage, cybersécurité, infogérance et IA</title>
+<meta name="description" content="Dépannage pour particuliers, audit cybersécurité gratuit, infogérance dès 30 €/mois et automatisation par IA. Paris et Île-de-France.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- ======================================================================
-     NOTE POUR VOUS : site 100% "lead generation" — aucune coordonnée
-     (nom, téléphone, e-mail, adresse) n'est affichée sur la page.
-     Seul le formulaire de contact collecte les demandes.
-     Pensez à renseigner l'URL Google Sheets en bas du fichier pour
-     recevoir les leads. Thème sombre par défaut, bascule clair/sombre
-     disponible en haut à droite.
-====================================================================== -->
-
-<script>
-  // Applique le thème avant le rendu pour éviter tout flash
-  document.documentElement.setAttribute('data-theme', 'dark');
-</script>
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  /* ---- Palette thématique (change avec data-theme) ---- */
-  --bg:#0D1119;
-  --surface:#151B27;
-  --surface-2:#0F141E;
-  --text-main:#E4E7EE;      /* clair mais pas éblouissant */
-  --muted:#96A0B5;
-  --border:rgba(228,231,238,0.09);
-
-  /* ---- Panneaux "punch" toujours sombres (accent visuel constant) ---- */
-  --panel:#080B12;
-  --panel-2:#111726;
-  --panel-border:rgba(228,231,238,0.10);
-  --text-inv:#E7EAF1;
-  --muted-inv:#8B93A7;
-
-  /* ---- Accents (fixes quel que soit le thème) ---- */
-  --signal:#F5B93D;
-  --signal-dim:rgba(245,185,61,0.16);
-  --shield:#4C8EF7;
-  --shield-dim:rgba(76,142,247,0.16);
-  --alert:#F2555C;
-  --mint:#2FBE7A;
-  --mint-dim:rgba(47,190,122,0.14);
-
-  --radius:18px;
-  --font-d:'Space Grotesk',sans-serif;
-  --font-b:'Inter',sans-serif;
-  --font-m:'JetBrains Mono',monospace;
-  --shadow:0 24px 60px rgba(0,0,0,0.35);
-}
-
-[data-theme="light"]{
-  --bg:#F4F6FA;
-  --surface:#FFFFFF;
-  --surface-2:#EBEEF3;
-  --text-main:#171C28;      /* clair... mais pas trop: pas de noir pur */
-  --muted:#5B6478;
-  --border:rgba(23,28,40,0.09);
-  --shadow:0 20px 50px rgba(15,20,35,0.08);
-}
-
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--text-main);
-  font-family:var(--font-b);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  transition:background-color .35s ease, color .35s ease;
-}
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-}
-img,svg{display:block;max-width:100%;}
-a{color:inherit;}
-.container{max-width:1180px;margin:0 auto;padding:0 28px;}
-.eyebrow{
-  font-family:var(--font-m); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
-  color:var(--signal); font-weight:600; margin-bottom:14px; display:flex; align-items:center; gap:10px;
-}
-.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 4px var(--signal-dim);}
-.eyebrow.on-panel{color:var(--signal);}
-h1,h2,h3,h4{font-family:var(--font-d); font-weight:600; letter-spacing:-0.01em; color:var(--text-main);}
-.section-title{font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.15; margin-bottom:18px;}
-.section-sub{color:var(--muted); font-size:1.08rem; max-width:640px; margin-bottom:44px;}
-
-section{padding:96px 0;}
-@media(max-width:768px){section{padding:64px 0;}}
-
-/* ============ HEADER ============ */
-header{
-  position:sticky; top:0; z-index:100;
-  background:color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-  transition:background-color .35s ease, border-color .35s ease;
-}
-.header-row{display:flex; align-items:center; justify-content:space-between; padding:18px 0; gap:20px;}
-.mark{display:flex; align-items:center; gap:10px; text-decoration:none;}
-.mark-icon{width:34px;height:34px;flex-shrink:0;}
-.mark-text{font-family:var(--font-d); font-weight:700; font-size:1.15rem; color:var(--text-main); letter-spacing:-0.01em;}
-.mark-text small{display:block; font-family:var(--font-m); font-weight:500; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:1px;}
-nav{display:flex; align-items:center; gap:32px;}
-.nav-links{display:flex; gap:28px;}
-.nav-links a{text-decoration:none; font-size:0.94rem; font-weight:500; color:var(--text-main); opacity:0.78; transition:opacity .2s;}
-.nav-links a:hover{opacity:1;}
-@media(max-width:900px){.nav-links{display:none;}}
-.header-actions{display:flex; align-items:center; gap:14px;}
-
-.theme-toggle{
-  background:var(--surface); border:1px solid var(--border);
-  width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; color:var(--text-main); transition:all .3s ease; flex-shrink:0;
-}
-.theme-toggle:hover{transform:rotate(15deg) scale(1.05); border-color:var(--shield);}
-.theme-toggle svg{width:19px; height:19px; fill:currentColor;}
-[data-theme="dark"] .icon-moon{display:none;}
-[data-theme="light"] .icon-sun{display:none;}
-
-.btn{
-  font-family:var(--font-b); font-weight:600; font-size:0.95rem;
-  border-radius:99px; padding:13px 26px; border:none; cursor:pointer;
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  transition:all .25s ease; text-decoration:none; white-space:nowrap;
-}
-.btn-signal{background:var(--signal); color:#12182B; box-shadow:0 10px 24px rgba(245,185,61,0.28);}
-.btn-signal:hover{transform:translateY(-2px); box-shadow:0 14px 28px rgba(245,185,61,0.4);}
-.btn-ghost-inv{background:transparent; border:1px solid var(--panel-border); color:var(--text-inv);}
-.btn-ghost-inv:hover{background:rgba(255,255,255,0.06);}
-.btn-outline{background:transparent; border:1px solid var(--border); color:var(--text-main);}
-.btn-outline:hover{border-color:var(--shield); color:var(--shield);}
-
-/* ============ HERO ============ */
-.hero{
-  background:radial-gradient(120% 100% at 15% 0%, #16233D 0%, var(--panel) 55%, #05070C 100%);
-  color:var(--text-inv); position:relative; overflow:hidden; padding:100px 0 0;
-}
-.hero-grid{
-  position:absolute; inset:0; opacity:0.35; pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
-  background-size:52px 52px;
-  mask-image:radial-gradient(circle at 75% 30%, black, transparent 70%);
-}
-.hero-inner{position:relative; z-index:2; display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
-@media(max-width:960px){.hero-inner{grid-template-columns:1fr;}}
-.hero h1{font-size:clamp(2.4rem,4.6vw,3.6rem); line-height:1.08; margin-bottom:22px; color:var(--text-inv);}
-.hero h1 .hl{color:var(--signal);}
-.hero p.lead{color:var(--muted-inv); font-size:1.15rem; max-width:520px; margin-bottom:34px;}
-.hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:54px;}
-.hero-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--panel-border); padding-top:26px;}
-.hero-stat{padding-right:20px;}
-.hero-stat b{font-family:var(--font-m); font-size:1.9rem; font-weight:700; color:var(--text-inv); display:block;}
-.hero-stat span{font-size:0.82rem; color:var(--muted-inv);}
-
-/* Radar signature */
-.radar-wrap{position:relative; aspect-ratio:1/1; max-width:440px; margin:0 auto;}
-.radar-ring{position:absolute; border:1px solid var(--panel-border); border-radius:50%;}
-.r1{inset:0;} .r2{inset:16%;} .r3{inset:32%;} .r4{inset:48%;}
-.radar-sweep{
-  position:absolute; inset:0; border-radius:50%;
-  background:conic-gradient(from 0deg, rgba(245,185,61,0.55), transparent 28%);
-  animation:spin 4.5s linear infinite;
-  mix-blend-mode:screen;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-.radar-center{position:absolute; top:50%; left:50%; width:10px; height:10px; background:var(--signal); border-radius:50%; transform:translate(-50%,-50%); box-shadow:0 0 0 6px rgba(245,185,61,0.2);}
-.blip{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--shield); box-shadow:0 0 0 5px var(--shield-dim);}
-.blip.b1{top:28%; left:62%; animation:pulse 2.2s ease-in-out infinite;}
-.blip.b2{top:66%; left:30%; animation:pulse 2.2s ease-in-out infinite 0.7s; background:var(--alert); box-shadow:0 0 0 5px rgba(239,90,71,0.24);}
-.blip.b3{top:70%; left:68%; animation:pulse 2.2s ease-in-out infinite 1.3s;}
-@keyframes pulse{0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.5); opacity:0.5;}}
-.radar-caption{position:absolute; bottom:-38px; left:50%; transform:translateX(-50%); text-align:center; font-family:var(--font-m); font-size:0.72rem; color:var(--muted-inv); letter-spacing:0.06em; text-transform:uppercase; white-space:nowrap;}
-
-/* ============ ACTU BAND ============ */
-.actu-band{background:var(--panel-2); color:var(--text-inv); padding:56px 0 76px; border-top:1px solid var(--panel-border);}
-.actu-band h2{color:var(--text-inv);}
-.actu-band .section-sub{color:var(--muted-inv);}
-.actu-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--panel-border); border:1px solid var(--panel-border); border-radius:var(--radius); overflow:hidden;}
-@media(max-width:900px){.actu-grid{grid-template-columns:repeat(2,1fr);}}
-.actu-cell{background:var(--panel-2); padding:32px 26px;}
-.actu-cell b{font-family:var(--font-m); font-size:2.1rem; color:var(--alert); display:block; margin-bottom:8px;}
-.actu-cell p{font-size:0.88rem; color:var(--muted-inv);}
-.actu-cell .src{display:block; margin-top:10px; font-size:0.72rem; color:#606A82; font-family:var(--font-m);}
-
-/* ============ SERVICES / GRID ============ */
-.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
-.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-@media(max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr;}}
-
-.svc-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-  padding:34px; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .35s ease;
-}
-.svc-card:hover{transform:translateY(-5px); box-shadow:var(--shadow); border-color:var(--shield);}
-.svc-icon{width:44px; height:44px; margin-bottom:20px; color:var(--shield);}
-.svc-card h3{font-size:1.2rem; margin-bottom:10px;}
-.svc-card p{color:var(--muted); font-size:0.95rem;}
-
-/* ============ PACKS ============ */
-.packs{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch;}
-@media(max-width:900px){.packs{grid-template-columns:1fr;}}
-.pack{
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-  padding:36px 30px; display:flex; flex-direction:column; position:relative;
-  transition:background-color .35s ease, border-color .35s ease;
-}
-.pack.featured{border:2px solid var(--signal); box-shadow:0 24px 50px rgba(245,185,61,0.16); transform:scale(1.03);}
-@media(max-width:900px){.pack.featured{transform:none;}}
-.pack-badge{position:absolute; top:-13px; left:30px; background:var(--signal); color:#12182B; font-size:0.72rem; font-weight:700; padding:5px 14px; border-radius:99px; font-family:var(--font-m); letter-spacing:0.04em;}
-.pack-name{font-family:var(--font-m); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:8px;}
-.pack h3{font-size:1.35rem; margin-bottom:18px;}
-.pack-price{font-family:var(--font-m); font-weight:700; font-size:2.1rem; color:var(--text-main); margin-bottom:2px;}
-.pack-price span{font-size:0.95rem; font-weight:500; color:var(--muted);}
-.pack-unit{font-size:0.82rem; color:var(--muted); margin-bottom:26px;}
-.pack ul{list-style:none; margin-bottom:28px; flex:1;}
-.pack li{display:flex; gap:10px; align-items:flex-start; padding:9px 0; font-size:0.92rem; border-top:1px solid var(--border);}
-.pack li:first-child{border-top:none;}
-.pack li svg{width:17px; height:17px; flex-shrink:0; margin-top:2px; color:var(--mint);}
-
-/* ============ AI TOOLS ============ */
-.ai-section{background:var(--panel); color:var(--text-inv); position:relative; overflow:hidden;}
-.ai-section .section-title{color:var(--text-inv);}
-.ai-section .section-sub{color:var(--muted-inv);}
-.ai-section::before{
-  content:""; position:absolute; top:-30%; right:-10%; width:60%; height:80%;
-  background:radial-gradient(circle, rgba(76,142,247,0.22), transparent 70%); pointer-events:none;
-}
-.ai-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--panel-border); border:1px solid var(--panel-border); border-radius:var(--radius); overflow:hidden; position:relative; z-index:2;}
-@media(max-width:860px){.ai-grid{grid-template-columns:1fr;}}
-.ai-cell{background:var(--panel-2); padding:32px 28px;}
-.ai-cell .tagsmall{display:inline-block; font-family:var(--font-m); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--shield); background:var(--shield-dim); padding:4px 10px; border-radius:6px; margin-bottom:16px;}
-.ai-cell h3{font-size:1.08rem; color:var(--text-inv); margin-bottom:10px;}
-.ai-cell p{font-size:0.88rem; color:var(--muted-inv);}
-.ai-icon{width:30px; height:30px; color:var(--shield); margin-bottom:14px;}
-
-/* ============ AIDES / SIMULATEUR ============ */
-.toggle-wrapper{background:var(--surface); border-radius:99px; padding:6px; display:inline-flex; box-shadow:var(--shadow); border:1px solid var(--border); margin-bottom:44px; transition:background-color .35s ease;}
-.toggle-btn{padding:12px 30px; border-radius:99px; border:none; background:transparent; font-family:var(--font-b); font-weight:600; font-size:0.98rem; color:var(--muted); cursor:pointer; transition:all .25s ease;}
-.toggle-btn.active{background:var(--signal); color:#12182B;}
-.tool-box{background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; display:flex; flex-wrap:wrap; box-shadow:var(--shadow); transition:background-color .35s ease, border-color .35s ease;}
-.tool-main{flex:1; min-width:300px; padding:38px;}
-.tool-side{width:320px; background:var(--surface-2); padding:38px; border-left:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; transition:background-color .35s ease, border-color .35s ease;}
-@media(max-width:800px){.tool-side{width:100%; border-left:none; border-top:1px solid var(--border);}}
-.check-row{display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--border);}
-.check-row:last-child{border-bottom:none;}
-.check-row label{display:flex; align-items:center; gap:14px; cursor:pointer; font-size:0.98rem;}
-.check-row input[type=checkbox]{width:19px; height:19px; accent-color:var(--shield);}
-.tag-mini{font-family:var(--font-m); font-size:0.7rem; padding:4px 10px; border-radius:6px; font-weight:600;}
-.tag-ok{background:var(--mint-dim); color:var(--mint);}
-.tag-no{background:rgba(150,160,181,0.14); color:var(--muted);}
-.result-val{font-family:var(--font-m); font-size:2rem; font-weight:700; color:var(--text-main); margin-bottom:4px;}
-.result-lbl{font-size:0.82rem; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.05em;}
-.slider-container input[type=range]{width:100%; accent-color:var(--shield); margin:30px 0;}
-.amount-display{font-family:var(--font-m); font-size:3.2rem; font-weight:700; color:var(--shield); text-align:center; line-height:1; margin-top:14px;}
-.hidden{display:none !important;}
-
-/* ============ FAQ ============ */
-#faq{background:var(--surface); border-top:1px solid var(--border); transition:background-color .35s ease, border-color .35s ease;}
-.faq-item{border-bottom:1px solid var(--border); padding:26px 0; cursor:pointer;}
-.faq-item:first-child{border-top:1px solid var(--border);}
-.faq-q{display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:1.05rem; font-family:var(--font-d);}
-.faq-q svg{width:18px; height:18px; flex-shrink:0; transition:transform .25s ease; color:var(--muted);}
-.faq-item.open .faq-q svg{transform:rotate(45deg); color:var(--signal);}
-.faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
-.faq-item.open .faq-a{max-height:200px;}
-.faq-a p{color:var(--muted); font-size:0.96rem; padding-top:14px; max-width:720px;}
-
-/* ============ CONTACT ============ */
-.contact-wrap{background:var(--panel); color:var(--text-inv); border-radius:28px; padding:60px; max-width:640px; margin:0 auto; text-align:center; position:relative; overflow:hidden;}
-@media(max-width:900px){.contact-wrap{padding:36px 24px;}}
-.contact-wrap::before{content:""; position:absolute; bottom:-20%; left:-10%; width:50%; height:70%; background:radial-gradient(circle, rgba(245,185,61,0.2), transparent 70%);}
-.contact-info{position:relative; z-index:2;}
-.contact-info h2{color:var(--text-inv); font-size:2rem; margin-bottom:14px;}
-.contact-info p{color:var(--muted-inv); margin-bottom:34px; max-width:440px; margin-left:auto; margin-right:auto;}
-.form-grid{display:grid; gap:16px; position:relative; z-index:2; text-align:left;}
-.form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-@media(max-width:500px){.form-row{grid-template-columns:1fr;}}
-input,textarea{
-  width:100%; padding:16px 18px; border-radius:12px; border:1px solid var(--panel-border);
-  background:rgba(255,255,255,0.05); font-family:var(--font-b); font-size:0.96rem; color:var(--text-inv);
-  transition:all .25s ease;
-}
-input::placeholder,textarea::placeholder{color:var(--muted-inv);}
-input:focus,textarea:focus{outline:none; border-color:var(--signal); background:rgba(255,255,255,0.08);}
-textarea{min-height:120px; resize:vertical;}
-
-/* ============ FOOTER ============ */
-footer{padding:50px 0; text-align:center; color:var(--muted); font-size:0.88rem;}
-
-/* focus visibility */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:2px solid var(--signal); outline-offset:2px;}
+:root{--bg:#FBFBFD;--ink:#1D1D1F;--mut:#6E6E73;--card:#F5F5F7;--card2:#fff;--line:#D2D2D7;--acc:#0071E3;--acc2:#0A84FF;--ok:#30B65B;--dk:#000;--dkt:#F5F5F7;
+--f:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--ink:#F5F5F7;--mut:#A1A1A6;--card:#1C1C1E;--card2:#161618;--line:#38383A;--acc:#2997FF;--dk:#1C1C1E}}
+:root[data-theme="dark"]{--bg:#000;--ink:#F5F5F7;--mut:#A1A1A6;--card:#1C1C1E;--card2:#161618;--line:#38383A;--acc:#2997FF;--dk:#1C1C1E}
+html{scroll-padding-top:calc(60px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--f);-webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(2.8rem,8.2vw,6rem);font-weight:700;line-height:1.02;letter-spacing:-.045em}
+h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.06;letter-spacing:-.035em}
+h3{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px;border-radius:8px}
+.w{max-width:1080px;margin:0 auto;padding:0 22px}
+section{padding:110px 0}
+.c{text-align:center}
+.sub{color:var(--mut);font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.35;max-width:640px;margin:20px auto 0;letter-spacing:-.015em}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.nav{display:flex;justify-content:space-between;align-items:center;height:52px;font-size:.85rem}
+.nav b{font-weight:600;font-size:1rem;text-decoration:none}
+.nav div{display:flex;gap:28px;align-items:center}
+.nav a{text-decoration:none;color:var(--mut)}
+.nav a:hover{color:var(--ink)}
+.pill{display:inline-block;background:var(--acc);color:#fff!important;padding:9px 20px;border-radius:980px;font:500 1rem var(--f);text-decoration:none;border:0;cursor:pointer;transition:filter .2s,transform .2s}
+.nav .pill{padding:6px 14px;font-size:.82rem}
+.pill:hover{filter:brightness(1.1)}
+.pill.o{background:transparent;color:var(--acc)!important;border:1.5px solid var(--acc)}
+@media(max-width:760px){.nav div a:not(.pill){display:none}}
+.mq{padding:20px 0 0;overflow:hidden;display:grid;gap:12px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.tr{display:flex;gap:12px;width:max-content;animation:mq 40s linear infinite}
+.tr.r{animation-direction:reverse;animation-duration:46s}
+.mq:hover .tr{animation-play-state:paused}
+.tr span{white-space:nowrap;background:var(--card);padding:14px 26px;border-radius:980px;font-size:clamp(1rem,2vw,1.25rem);font-weight:600;letter-spacing:-.02em}
+.tr span.h{background:var(--acc);color:#fff}
+@keyframes mq{to{transform:translateX(-50%)}}
+.hero{padding:64px 0 40px}
+.hero .sub{margin-bottom:32px}
+.hero h1,.hero .sub,.hero .btns,.dash{animation:up 1s cubic-bezier(.16,1,.3,1) both}
+.hero .sub{animation-delay:.1s}.hero .btns{animation-delay:.2s}.dash{animation-delay:.35s}
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.mq{overflow-x:auto}}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.lnk{color:var(--acc);text-decoration:none;font-size:1.1rem;padding:9px 6px}
+.lnk::after{content:" ›"}
+/* dashboard */
+.dash{margin:70px auto 0;max-width:820px;background:var(--card);border-radius:30px;padding:34px;text-align:left;box-shadow:0 40px 80px -40px rgba(0,0,0,.35)}
+.dash small{color:var(--mut);font-size:.8rem}
+.dg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px}
+@media(max-width:640px){.dg{grid-template-columns:1fr}}
+.tile{background:var(--card2);border-radius:18px;padding:20px}
+.tile b{font-size:2.3rem;font-weight:700;letter-spacing:-.04em;display:block}
+.tile span{color:var(--mut);font-size:.9rem}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:8px;animation:bl 2.4s ease-in-out infinite}
+@keyframes bl{50%{opacity:.35}}
+.log{margin-top:12px;background:var(--card2);border-radius:18px;padding:6px 20px;font-size:.92rem}
+.log p{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+.log p:last-child{border:0}.log em{color:var(--mut);font-style:normal}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:60px}
+.bc{background:var(--card);border-radius:28px;padding:38px;display:flex;flex-direction:column;justify-content:space-between;min-height:290px;grid-column:span 2}
+.bc.w3{grid-column:span 3}.bc.w4{grid-column:span 4}
+.bc.dark{background:#000;color:#F5F5F7}
+:root[data-theme="dark"] .bc.dark,:root:not([data-theme="light"]) .bc.dark{background:var(--dk)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .bc.dark{background:#000}}
+.bc p{color:var(--mut);margin-top:12px;font-size:1.02rem;max-width:46ch}
+.bc.dark p{color:#A1A1A6}
+.bc .big{font-size:3.4rem;font-weight:700;letter-spacing:-.045em;line-height:1}
+.bc a{margin-top:22px}
+@media(max-width:860px){.bc,.bc.w3,.bc.w4{grid-column:span 6;min-height:0}}
+/* packs */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px;text-align:left}
+@media(max-width:860px){.packs{grid-template-columns:1fr}}
+.pk{background:var(--card);border-radius:28px;padding:36px;display:flex;flex-direction:column}
+.pk.hot{background:var(--ink);color:var(--bg)}
+.pk .p{font-size:2.8rem;font-weight:700;letter-spacing:-.04em;margin:16px 0 4px}
+.pk .p small{font-size:1rem;font-weight:400;opacity:.65;letter-spacing:0}
+.pk ul{list-style:none;padding:0;margin:22px 0 28px;display:grid;gap:12px;flex:1;font-size:.98rem}
+.pk li{padding-top:12px;border-top:1px solid color-mix(in srgb,currentColor 18%,transparent)}
+.pk .pill{text-align:center}
+.pk.hot .pill{background:var(--bg);color:var(--ink)!important}
+.fine{color:var(--mut);font-size:.85rem;margin-top:22px}
+/* sim */
+.sim{background:var(--card);border-radius:32px;padding:56px 36px;max-width:820px;margin:50px auto 0}
+.sim .n{font-size:clamp(3.4rem,10vw,6rem);font-weight:700;letter-spacing:-.05em;line-height:1}
+input[type=range]{width:100%;max-width:520px;margin:30px 0;accent-color:var(--acc)}
+.res{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
+.res b{display:block;font-size:2rem;letter-spacing:-.03em}.res span{color:var(--mut);font-size:.9rem}
+/* faq */
+.faq{max-width:760px;margin:50px auto 0;text-align:left}
+details{border-bottom:1px solid var(--line);padding:22px 0}
+summary{font-size:1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;letter-spacing:-.02em}
+summary::after{content:"+";font-weight:300;font-size:1.8rem;line-height:1;color:var(--mut);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mut);margin-top:12px}
+/* contact */
+.ct{background:var(--card);border-radius:36px;padding:70px 28px;margin-top:0}
+form{max-width:520px;margin:40px auto 0;display:grid;gap:12px;text-align:left}
+input,select,textarea{font:400 1rem var(--f);padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:var(--card2);color:var(--ink);width:100%;letter-spacing:-.01em}
+textarea{min-height:120px;resize:vertical}
+.pill.full{width:100%;padding:16px;font-size:1.05rem}
+#ok{display:none;text-align:center;font-weight:600;margin-top:6px}
+footer{padding:36px 0 50px;color:var(--mut);font-size:.82rem;border-top:1px solid var(--line)}
+footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="container header-row">
-    <a href="#" class="mark" aria-label="Accueil">
-      <svg class="mark-icon" viewBox="0 0 44 44" fill="none">
-        <path d="M22 3L38 9V21C38 30.5 31.4 37.7 22 41C12.6 37.7 6 30.5 6 21V9L22 3Z" fill="none" stroke="#4C8EF7" stroke-width="2.2"/>
-        <path d="M14 22L19.5 27.5L30 15" stroke="#F5B93D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-    <nav class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#packs">Packs</a>
-      <a href="#ia">Outils IA</a>
-      <a href="#aides">Aides de l'État</a>
-      <a href="#actu">Actualité</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <div class="header-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
-        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M20.742 13.045a8.088 8.088 0 01-2.077.271c-4.008 0-7.259-3.252-7.259-7.26 0-1.311.352-2.541.964-3.6a9.06 9.06 0 105.803 12.269 8.984 8.984 0 002.569-1.68z"/></svg>
-      </button>
-      <a href="#contact" class="btn btn-signal">Audit gratuit</a>
-    </div>
-  </div>
-</header>
+<header><div class="w nav"><b>aide-informatique</b>
+<div><a href="#services">Services</a><a href="#packs">Infogérance</a><a href="#aide">Aides</a><a href="#faq">FAQ</a><a class="pill" href="#contact">Audit gratuit</a></div></div></header>
 
 <main>
+<div class="mq" aria-label="Nos services">
+<div class="tr"><span class="h">Audit cybersécurité gratuit</span><span>Dépannage à domicile</span><span>Infogérance dès 30 €/mois</span><span>Automatisation par IA</span><span>Cours individuels</span><span>Installation d'ordinateur</span><span>Sauvegardes sécurisées</span><span>Assistance à distance</span></div>
+<div class="tr r"><span>Antivirus géré</span><span class="h">Protection anti-arnaques</span><span>Microsoft 365 et Google Workspace</span><span>Assistants IA sur vos documents</span><span>Wi-Fi et réseau</span><span>Transfert de données</span><span class="h">Formation au phishing</span><span>Support entreprises</span></div>
+</div>
+<section class="hero c"><div class="w">
+<h1>Votre informatique.<br>Protégée. Simple.</h1>
+<p class="sub">Dépannage, cybersécurité, infogérance et IA. Pour les particuliers et les entreprises, à Paris et à distance.</p>
+<div class="btns"><a class="pill" href="#contact">Demander un audit gratuit</a><a class="lnk" href="#services">Découvrir les services</a></div>
+<div class="dash" aria-label="Exemple de tableau de bord de supervision">
+<small>Exemple de tableau de bord client</small>
+<div class="dg">
+<div class="tile"><b>12/12</b><span><i class="dot"></i>Postes protégés</span></div>
+<div class="tile"><b>100%</b><span><i class="dot"></i>Sauvegardes réussies</span></div>
+<div class="tile"><b>0</b><span><i class="dot"></i>Alerte critique</span></div></div>
+<div class="log"><p>Mises à jour de sécurité installées<em>Cette nuit</em></p><p>Tentative d'hameçonnage bloquée<em>Hier</em></p><p>Test de restauration des sauvegardes<em>Ce mois-ci</em></p></div>
+</div></div></section>
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="container hero-inner">
-      <div>
-        <div class="eyebrow">Agrément SAP · Île-de-France</div>
-        <h1>On ne voit jamais<br>l'attaque arriver.<br><span class="hl">Nous, si.</span></h1>
-        <p class="lead">Infogérance, cybersécurité et intégration d'IA pour TPE/PME. Supervision continue, réaction en heures et non en jours — avec jusqu'à 50% de vos prestations financées par l'État.</p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn btn-signal">Demander un audit gratuit</a>
-          <a href="#packs" class="btn btn-ghost-inv">Voir les packs</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat"><b>91%</b><span>des attaques réussies débutent par un e-mail (ANSSI, 2025)</span></div>
-          <div class="hero-stat"><b>1h20</b><span>délai moyen d'intervention de nos équipes</span></div>
-          <div class="hero-stat"><b>50%</b><span>de vos prestations pris en charge par l'État</span></div>
-        </div>
-      </div>
-      <div class="radar-wrap">
-        <div class="radar-ring r1"></div>
-        <div class="radar-ring r2"></div>
-        <div class="radar-ring r3"></div>
-        <div class="radar-ring r4"></div>
-        <div class="radar-sweep"></div>
-        <div class="radar-center"></div>
-        <div class="blip b1"></div>
-        <div class="blip b2"></div>
-        <div class="blip b3"></div>
-        <div class="radar-caption">Surveillance active 24/7</div>
-      </div>
-    </div>
-    <div style="height:64px;"></div>
-  </section>
+<section id="services" class="c"><div class="w">
+<h2>Un seul expert pour tout.</h2>
+<p class="sub">Des solutions claires pour chaque besoin, sans jargon.</p>
+<div class="bento">
+<div class="bc w4"><div><h3>Particuliers</h3><p>Ordinateur lent, virus, Wi-Fi, installation, transfert de données, cours individuels. À domicile ou à distance, devis avant chaque intervention.</p></div><a class="lnk" href="#aide">Estimer mon crédit d'impôt</a></div>
+<div class="bc dark"><div><div class="big">0 €</div><p style="margin-top:14px">Audit cybersécurité gratuit pour les entreprises, sans engagement.</p></div><a class="lnk" href="#contact">Demander l'audit</a></div>
+<div class="bc"><div><h3>Infogérance</h3><p>Supervision, mises à jour et assistance continue de vos postes.</p></div><a class="lnk" href="#packs">Voir les packs</a></div>
+<div class="bc"><div><h3>Cybersécurité</h3><p>Antivirus géré, accès sécurisés, sauvegardes testées, sensibilisation au phishing.</p></div></div>
+<div class="bc"><div><h3>IA et automatisation</h3><p>Assistants sur vos documents, tri des courriels, devis et relances automatiques.</p></div><a class="lnk" href="#contact">En parler</a></div>
+</div></div></section>
 
-  <!-- ================= ACTU / STATS ================= -->
-  <section class="actu-band" id="actu">
-    <div class="container">
-      <div class="eyebrow on-panel">Ce que dit l'actualité</div>
-      <h2 style="font-size:clamp(1.7rem,3vw,2.3rem); max-width:720px; margin-bottom:14px;">2026, l'année où la messagerie est devenue la première porte d'entrée</h2>
-      <p class="section-sub">Tout commence presque toujours par un simple e-mail. Voici ce que révèlent les derniers rapports officiels sur les cybermenaces visant les TPE/PME françaises.</p>
-      <div class="actu-grid">
-        <div class="actu-cell">
-          <b>91%</b>
-          <p>des cyberattaques réussies débutent par un e-mail frauduleux (phishing, pièce jointe piégée).</p>
-          <span class="src">Source : ANSSI, Panorama de la cybermenace 2025</span>
-        </div>
-        <div class="actu-cell">
-          <b>17 500+</b>
-          <p>cyberattaques recensées en France en 2025, en hausse de 4% sur un an.</p>
-          <span class="src">Source : ANSSI 2025</span>
-        </div>
-        <div class="actu-cell">
-          <b>130-250k€</b>
-          <p>coût moyen d'un rançongiciel pour une PME française, interruption d'activité incluse.</p>
-          <span class="src">Source : estimations sectorielles 2025-2026</span>
-        </div>
-        <div class="actu-cell">
-          <b>500 000+</b>
-          <p>victimes accompagnées par le dispositif national Cybermalveillance, +20% en un an.</p>
-          <span class="src">Source : cybermalveillance.gouv.fr</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="packs" class="c" style="background:var(--card)"><div class="w">
+<h2>L'infogérance dès 30 €.</h2>
+<p class="sub">Tarif par poste et par mois. Choisissez le niveau de protection adapté à votre entreprise.</p>
+<div class="packs">
+<div class="pk" style="background:var(--card2)"><h3>Essentiel</h3><div class="p">30 €<small> /poste/mois</small></div><ul><li>Supervision et maintenance à distance</li><li>Antivirus géré (EDR)</li><li>Mises à jour de sécurité</li><li>Assistance utilisateurs</li></ul><a class="pill o" href="#contact">Choisir</a></div>
+<div class="pk hot"><h3>Avancé</h3><div class="p">Sur devis</div><ul><li>Tout l'Essentiel</li><li>Audit de vulnérabilité annuel</li><li>Assistant IA sur vos documents</li><li>Sécurisation des accès et comptes</li></ul><a class="pill" href="#contact">Demander un devis</a></div>
+<div class="pk" style="background:var(--card2)"><h3>Complet</h3><div class="p">Sur devis</div><ul><li>Tout l'Avancé</li><li>Simulations de phishing régulières</li><li>Formation des équipes à l'IA</li><li>Rapport mensuel et point de suivi</li></ul><a class="pill o" href="#contact">Demander un devis</a></div>
+</div>
+<p class="fine">Prix hors matériel et hors taxes. Détail précisé dans le devis.</p>
+</div></section>
 
-  <!-- ================= SERVICES ================= -->
-  <section id="services">
-    <div class="container">
-      <div class="eyebrow">Notre expertise</div>
-      <h2 class="section-title">Structurer et protéger votre système d'information</h2>
-      <p class="section-sub">Des interventions concrètes, pas de jargon inutile — chaque prestation répond à un risque identifié.</p>
-      <div class="grid-2">
-        <div class="svc-card">
-          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M12 16v4"/></svg>
-          <h3>Administration systèmes</h3>
-          <p>Mise en place et sécurisation d'Active Directory, stratégies de groupe (GPO) et segmentation réseau pour cloisonner les menaces entre postes.</p>
-        </div>
-        <div class="svc-card">
-          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
-          <h3>Protection périmétrique</h3>
-          <p>Déploiement de pare-feux professionnels, VPN pour le télétravail, analyse de vulnérabilité et protection active contre les rançongiciels.</p>
-        </div>
-        <div class="svc-card">
-          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/><path d="M19 5l1.5 1.5M19 9l1.5-1.5"/></svg>
-          <h3>Intégration d'IA (RAG)</h3>
-          <p>Assistants et chatbots internes qui interrogent vos documents en temps réel, hébergés sur infrastructure dédiée pour une confidentialité totale.</p>
-        </div>
-        <div class="svc-card">
-          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4V4z"/><path d="M8 9h8M8 12h5"/></svg>
-          <h3>Sensibilisation & phishing</h3>
-          <p>Le maillon faible reste l'humain. Campagnes de simulation de phishing et ateliers pratiques pour armer vos équipes au quotidien.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="aide" class="c"><div class="w">
+<h2>Particuliers : moitié prix.</h2>
+<p class="sub">Les services à domicile éligibles donnent droit à un crédit d'impôt de 50 %. Estimez votre reste à charge.</p>
+<div class="sim"><div class="n"><span id="amt">80</span> €</div>
+<input type="range" id="rg" min="0" max="400" step="10" value="80" aria-label="Coût de l'intervention">
+<div class="res"><div><b id="st">40 €</b><span>Crédit d'impôt estimé</span></div><div><b id="py">40 €</b><span>Coût réel pour vous</span></div></div>
+<p class="fine">Estimation indicative, selon l'éligibilité de la prestation. Matériel exclu.</p></div>
+</div></section>
 
-  <!-- ================= PACKS ================= -->
-  <section id="packs" style="background:var(--surface-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-    <div class="container">
-      <div class="eyebrow">Infogérance</div>
-      <h2 class="section-title">Trois niveaux de protection, un seul interlocuteur</h2>
-      <p class="section-sub">Tarification par poste et par mois. Sans engagement de durée excessive, avec supervision continue dès le premier pack.</p>
-      <div class="packs">
+<section id="faq" class="c" style="background:var(--card)"><div class="w">
+<h2>Questions fréquentes</h2>
+<div class="faq">
+<details open><summary>L'audit est-il vraiment gratuit ?</summary><p>Oui, pour les entreprises. Vous recevez un rapport écrit avec les priorités, sans aucune obligation de poursuivre.</p></details>
+<details><summary>Intervenez-vous à distance ?</summary><p>Oui, avec votre accord à chaque session. Vous suivez ce qui est fait et pouvez interrompre à tout moment.</p></details>
+<details><summary>Vendez-vous du matériel ?</summary><p>Je peux vous conseiller. Le devis sépare toujours le matériel de la prestation.</p></details>
+<details><summary>Quelle zone couvrez-vous ?</summary><p>Interventions à domicile en Île-de-France. Audit, IA et support à distance partout en France.</p></details>
+<details><summary>Combien de temps pour démarrer une infogérance ?</summary><p>Comptez environ une à deux semaines pour inventorier le parc et installer les outils.</p></details>
+</div></div></section>
 
-        <div class="pack">
-          <div class="pack-name">Pack 1</div>
-          <h3>Infogérance + EDR</h3>
-          <div class="pack-price">15–25€ <span>/ poste / mois</span></div>
-          <div class="pack-unit">Facturation mensuelle, par poste actif</div>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Supervision et maintenance à distance</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Détection & réponse (EDR) sur chaque poste</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Mises à jour et correctifs de sécurité</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Assistance utilisateurs</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline" style="width:100%;">Choisir ce pack</a>
-        </div>
+<section id="contact" style="padding-bottom:60px"><div class="w"><div class="ct c">
+<h2>Parlons-en.</h2>
+<p class="sub">Laissez vos coordonnées, vous êtes rappelé sous 48 h ouvrées.</p>
+<form id="f">
+<select id="profil" aria-label="Profil"><option value="particulier">Je suis un particulier</option><option value="entreprise" selected>Je représente une entreprise</option></select>
+<input id="nom" type="text" placeholder="Nom ou raison sociale" required autocomplete="name">
+<input id="tel" type="tel" placeholder="Téléphone" required autocomplete="tel">
 
-        <div class="pack featured">
-          <div class="pack-badge">Le plus choisi</div>
-          <div class="pack-name">Pack 2</div>
-          <h3>+ Cybersécurité & IA</h3>
-          <div class="pack-price">60–100€ <span>/ poste / mois</span></div>
-          <div class="pack-unit">Facturation mensuelle, par poste actif</div>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Tout le Pack 1</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Pentest & audit de vulnérabilité annuels</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Mise en place d'un assistant IA sur-mesure</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Durcissement Active Directory & accès</li>
-          </ul>
-          <a href="#contact" class="btn btn-signal" style="width:100%;">Choisir ce pack</a>
-        </div>
-
-        <div class="pack">
-          <div class="pack-name">Pack 3</div>
-          <h3>Tout inclus + formations</h3>
-          <div class="pack-price">110–160€ <span>/ poste / mois</span></div>
-          <div class="pack-unit">Facturation mensuelle, par poste actif</div>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Tout le Pack 2</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Campagnes de phishing simulé récurrentes</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Formation des équipes aux usages de l'IA</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6"/></svg>Reporting mensuel & comité de suivi</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline" style="width:100%;">Choisir ce pack</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= OUTILS IA ================= -->
-  <section id="ia" class="ai-section">
-    <div class="container">
-      <div class="eyebrow on-panel">Intégration IA</div>
-      <h2 class="section-title">Les outils d'IA que nous déployons chez vous</h2>
-      <p class="section-sub">Une sélection selon vos usages réels — bureautique, support client ou automatisation — toujours avec une attention particulière à la confidentialité de vos données.</p>
-      <div class="ai-grid">
-        <div class="ai-cell">
-          <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 14h3"/></svg>
-          <div class="tagsmall">Bureautique</div>
-          <h3>Assistants intégrés Microsoft 365 / Google Workspace</h3>
-          <p>Paramétrage et déploiement des assistants IA déjà inclus dans vos suites bureautiques, avec gestion fine des droits d'accès.</p>
-        </div>
-        <div class="ai-cell">
-          <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
-          <div class="tagsmall">Support & documents</div>
-          <h3>Chatbot RAG sur vos documents internes</h3>
-          <p>Un assistant qui répond en s'appuyant uniquement sur vos procédures, contrats et bases de connaissance — hébergé en France.</p>
-        </div>
-        <div class="ai-cell">
-          <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="2.2"/><circle cx="17" cy="7" r="2.2"/><circle cx="12" cy="17" r="2.2"/><path d="M8.6 8.3L11 15.5M15.4 8.3L13 15.5M9.2 7h5.6"/></svg>
-          <div class="tagsmall">Automatisation</div>
-          <h3>Workflows automatisés (n8n, Make)</h3>
-          <p>Connexion de vos outils métiers pour automatiser la saisie, les relances et les tâches répétitives, sans code côté client.</p>
-        </div>
-        <div class="ai-cell">
-          <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>
-          <div class="tagsmall">Souveraineté</div>
-          <h3>Modèles auto-hébergés (open-source)</h3>
-          <p>Pour les données les plus sensibles : des modèles déployés sur votre propre infrastructure, sans transit vers un tiers.</p>
-        </div>
-        <div class="ai-cell">
-          <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20V10M6 20v-6M18 20v-9"/></svg>
-          <div class="tagsmall">Pilotage</div>
-          <h3>Tableaux de bord & reporting IA</h3>
-          <p>Mise en forme automatique de vos indicateurs d'activité pour un suivi mensuel clair, sans tableur à mettre à jour à la main.</p>
-        </div>
-        <div class="ai-cell">
-          <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
-          <div class="tagsmall">Sécurité de l'IA</div>
-          <h3>Cadrage des usages & prévention des fuites</h3>
-          <p>Politique d'usage, filtrage des données envoyées aux IA publiques et sensibilisation des équipes aux bons réflexes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= AIDES / SIMULATEUR ================= -->
-  <section id="aides">
-    <div class="container">
-      <div class="eyebrow">Financement</div>
-      <h2 class="section-title">Estimez vos aides de l'État</h2>
-      <p class="section-sub">Rappel : l'achat de matériel (switch, PC) n'est jamais subventionné. Seule la prestation intellectuelle et technique l'est.</p>
-
-      <div style="text-align:left; margin-bottom:8px;">
-        <div class="toggle-wrapper">
-          <button class="toggle-btn active" data-target="entreprise" onclick="switchView('entreprise')">Services Entreprise</button>
-          <button class="toggle-btn" data-target="particulier" onclick="switchView('particulier')">Assistance Particulier</button>
-        </div>
-      </div>
-
-      <!-- ENTREPRISE -->
-      <div id="view-entreprise">
-        <div class="tool-box">
-          <div class="tool-main" id="configList"></div>
-          <div class="tool-side">
-            <div style="margin-bottom:28px;">
-              <div class="result-lbl">Prestations cochées</div>
-              <div class="result-val" id="cfgCount">0</div>
-            </div>
-            <div>
-              <div class="result-lbl" style="color:var(--mint);">Prise en charge possible</div>
-              <div class="result-val" style="color:var(--mint);" id="cfgElig">0</div>
-            </div>
-            <button class="btn btn-signal" style="margin-top:28px; width:100%;" onclick="scrollToContact()">Valider la demande</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PARTICULIER -->
-      <div id="view-particulier" class="hidden">
-        <p style="color:var(--muted); margin-bottom:24px;">50% de crédit d'impôt immédiat : l'Urssaf finance la moitié, vous réglez le reste au moment de l'intervention.</p>
-        <div class="tool-box">
-          <div class="tool-main slider-container">
-            <div class="result-lbl" style="text-align:center;">Coût total de l'intervention</div>
-            <div class="amount-display"><span id="simAmountDisplay">80</span> €</div>
-            <input type="range" id="simRange" min="0" max="400" step="10" value="80" oninput="updateSim(this.value)">
-          </div>
-          <div class="tool-side">
-            <div style="margin-bottom:28px;">
-              <div class="result-lbl">L'Urssaf prend en charge</div>
-              <div class="result-val" style="color:var(--mint);" id="simState">40 €</div>
-            </div>
-            <div>
-              <div class="result-lbl">Il vous reste à payer</div>
-              <div class="result-val" id="simPay">40 €</div>
-            </div>
-            <button class="btn btn-signal" style="margin-top:28px; width:100%;" onclick="scrollToContact()">Prendre RDV</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================= FAQ ================= -->
-  <section id="faq">
-    <div class="container" style="max-width:820px;">
-      <div class="eyebrow">Questions fréquentes</div>
-      <h2 class="section-title">Ce qu'on nous demande le plus</h2>
-      <div id="faqList">
-        <div class="faq-item open">
-          <div class="faq-q">Comment fonctionne l'Avance Immédiate de l'Urssaf ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
-          <div class="faq-a"><p>C'est un service de l'État. Au lieu d'attendre l'année suivante pour votre crédit d'impôt de 50%, la déduction se fait en temps réel : vous validez la facture sur une plateforme sécurisée, et seul le reste à charge est prélevé.</p></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Vendez-vous du matériel informatique ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
-          <div class="faq-a"><p>Nous pouvons vous conseiller sur les meilleurs équipements (pare-feux, routeurs, PC), mais l'achat direct n'est jamais éligible aux aides de l'État. Nos devis séparent toujours clairement le matériel de la prestation.</p></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Intervenez-vous en dehors de l'Île-de-France ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
-          <div class="faq-a"><p>Nos prestations sur site et à domicile (crédit d'impôt) sont réservées à l'Île-de-France. Pour le B2B (audit, IA, configurations distantes), nous intervenons partout en France.</p></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Combien de temps pour mettre en place un pack d'infogérance ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
-          <div class="faq-a"><p>Comptez 1 à 2 semaines pour le déploiement initial (agents EDR, inventaire, accès), puis une supervision continue dès la première semaine.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-  <section id="contact">
-    <div class="container">
-      <div class="contact-wrap">
-        <div class="contact-info">
-          <div class="eyebrow on-panel" style="justify-content:center;">Contact</div>
-          <h2>Discutons de votre besoin</h2>
-          <p>Laissez-nous vos coordonnées, un expert vous rappelle sous 48h ouvrées.</p>
-        </div>
-        <form class="form-grid" id="voltForm" onsubmit="return submitForm(event)">
-          <input type="hidden" id="roleField" name="profil" value="entreprise">
-          <div class="form-row">
-            <input id="fname" name="nom" type="text" placeholder="Nom ou raison sociale" required>
-            <input id="fphone" name="telephone" type="tel" placeholder="Téléphone direct" required>
-          </div>
-          <input id="femail" name="email" type="email" placeholder="Adresse e-mail" required>
-          <textarea id="fmsg" name="besoin" placeholder="Précisez votre demande (ex : mise en place d'un AD, audit de sécurité, PC qui ne s'allume plus)..." required></textarea>
-          <button type="submit" class="btn btn-signal" id="submitBtn" style="width:100%; padding:17px;">Envoyer ma demande</button>
-          <div id="confirmMsg" style="color:var(--mint); text-align:center; font-weight:600; display:none; margin-top:6px;">✓ Message transmis à notre équipe. À très vite.</div>
-        </form>
-      </div>
-    </div>
-  </section>
-
+<textarea id="msg" placeholder="Votre besoin : audit, dépannage, infogérance, IA…" required></textarea>
+<button class="pill full" id="btn" type="submit">Envoyer ma demande</button>
+<div id="ok" role="status"></div>
+</form></div></div></section>
 </main>
 
-<footer>
-  <div class="container">
-    <p>Infogérance, cybersécurité et intégration IA en Île-de-France.</p>
-    <p style="margin-top:10px; opacity:0.7;">© 2026. Tous droits réservés.</p>
-  </div>
-</footer>
+<footer><div class="w"><span>© 2026 aide-informatique.online</span><span>Mentions légales : SIRET et adresse à compléter</span></div></footer>
 
 <script>
-// ===== BASCULE THÈME CLAIR / SOMBRE =====
-const themeToggleBtn = document.getElementById('themeToggle');
-const htmlEl = document.documentElement;
-themeToggleBtn.addEventListener('click', () => {
-  const current = htmlEl.getAttribute('data-theme');
-  htmlEl.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+(function(){
+document.querySelectorAll('.tr').forEach(function(t){t.innerHTML+=t.innerHTML});
+var rg=document.getElementById('rg');
+function sim(){var a=+rg.value;document.getElementById('amt').textContent=a;document.getElementById('st').textContent=a/2+' €';document.getElementById('py').textContent=a/2+' €'}
+rg.addEventListener('input',sim);
+var URL_SHEET="https://script.google.com/macros/s/AKfycbxfumg_2OfG1aWqTHalq6R4yszqBblN7kzxvmoqZrLvdVQgxHL44Q1u5E_0cC5UEL7LKA/exec";
+document.getElementById('f').addEventListener('submit',function(e){
+e.preventDefault();
+var b=document.getElementById('btn'),ok=document.getElementById('ok'),g=function(i){return document.getElementById(i).value};
+var data={nom:g('nom'),telephone:g('tel'),email:'',profil:g('profil'),besoin:g('msg')};
+b.disabled=true;b.textContent='Envoi en cours…';ok.style.display='none';
+fetch(URL_SHEET,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
+.then(function(){ok.style.color='var(--ok)';ok.textContent='Merci, votre demande est envoyée. À très vite.';ok.style.display='block';e.target.reset()})
+.catch(function(){ok.style.color='#D6343F';ok.textContent="L'envoi a échoué. Réessayez dans un instant.";ok.style.display='block'})
+.finally(function(){b.disabled=false;b.textContent='Envoyer ma demande'});
 });
-
-// ===== TOGGLE ENTREPRISE / PARTICULIER =====
-function switchView(view){
-  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelector(`[data-target="${view}"]`).classList.add('active');
-  const ent=document.getElementById('view-entreprise');
-  const part=document.getElementById('view-particulier');
-  if(view==='entreprise'){ent.classList.remove('hidden');part.classList.add('hidden');}
-  else{ent.classList.add('hidden');part.classList.remove('hidden');}
-  document.getElementById('roleField').value=view;
-}
-
-// ===== CONFIGURATEUR ENTREPRISE =====
-const CONFIG_ITEMS=[
-  {label:"Audit vulnérabilité & sécurité", eligible:true},
-  {label:"Configuration Active Directory / GPO", eligible:true},
-  {label:"Déploiement pare-feu & VPN", eligible:true},
-  {label:"Intégration d'IA / chatbot RAG", eligible:true},
-  {label:"Achat de serveurs, PC ou switchs", eligible:false},
-  {label:"Formation phishing des employés", eligible:true},
-];
-const listEl=document.getElementById('configList');
-CONFIG_ITEMS.forEach(item=>{
-  const row=document.createElement('div');
-  row.className='check-row';
-  row.innerHTML=`
-    <label>
-      <input type="checkbox" data-label="${item.label}" data-eligible="${item.eligible}" onchange="recalcConfig()">
-      ${item.label}
-    </label>
-    <span class="tag-mini ${item.eligible?'tag-ok':'tag-no'}">${item.eligible?'Éligible':'Matériel'}</span>
-  `;
-  listEl.appendChild(row);
-});
-function recalcConfig(){
-  let count=0, elig=0;
-  const boxes=document.querySelectorAll('#configList input[type=checkbox]:checked');
-  boxes.forEach(cb=>{count++; if(cb.dataset.eligible==='true') elig++;});
-  document.getElementById('cfgCount').textContent=count;
-  document.getElementById('cfgElig').textContent=elig;
-  if(count>0){
-    const sel=Array.from(boxes).map(cb=>cb.dataset.label);
-    document.getElementById('fmsg').value="Projet concerné : "+sel.join(', ')+".\n\nPrécisions : ";
-  } else {
-    document.getElementById('fmsg').value="";
-  }
-}
-
-// ===== SIMULATEUR PARTICULIER =====
-function updateSim(val){
-  const amount=Math.max(0,Math.min(3000,Number(val)||0));
-  const pay=amount/2;
-  document.getElementById('simAmountDisplay').textContent=amount;
-  document.getElementById('simPay').textContent=pay.toFixed(0)+' €';
-  document.getElementById('simState').textContent=pay.toFixed(0)+' €';
-}
-
-function scrollToContact(){document.getElementById('contact').scrollIntoView({behavior:'smooth'});}
-
-// ===== FAQ ACCORDION =====
-document.querySelectorAll('.faq-item').forEach(item=>{
-  item.querySelector('.faq-q').addEventListener('click', ()=>{
-    const wasOpen=item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-    if(!wasOpen) item.classList.add('open');
-  });
-});
-
-// ===== ENVOI GOOGLE SHEETS =====
-// Remplacez par votre propre URL de script Google Apps Script.
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxfumg_2OfG1aWqTHalq6R4yszqBblN7kzxvmoqZrLvdVQgxHL44Q1u5E_0cC5UEL7LKA/exec";
-
-function submitForm(e){
-  e.preventDefault();
-  const btn=document.getElementById('submitBtn');
-  const msg=document.getElementById('confirmMsg');
-  const form=e.target;
-  const data={
-    nom:document.getElementById('fname').value,
-    telephone:document.getElementById('fphone').value,
-    email:document.getElementById('femail').value,
-    profil:document.getElementById('roleField').value,
-    besoin:document.getElementById('fmsg').value,
-  };
-  btn.disabled=true;
-  btn.textContent="Transmission en cours...";
-  fetch(GOOGLE_SHEET_WEBAPP_URL,{
-    method:"POST", mode:"no-cors",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(data)
-  }).then(()=>{
-    msg.style.display='block'; form.reset();
-  }).catch(()=>{
-    msg.textContent="✓ Enregistré localement.";
-    msg.style.display='block'; form.reset();
-  }).finally(()=>{
-    btn.disabled=false; btn.textContent="Envoyer ma demande";
-    setTimeout(()=>{msg.style.display='none';},6000);
-  });
-  return false;
-}
+})();
 </script>
-
 </body>
 </html>
