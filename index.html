@@ -298,9 +298,9 @@ form.addEventListener("submit", async (event) => {
   submit.disabled = true;
   submit.textContent = "Envoi en cours…";
   try {
-    const response = await fetch(URL_SHEET, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(payload)});
-    const result = await response.json();
-    if (!response.ok || !result.ok) throw new Error("Envoi non confirmé");
+    /* no-cors : Apps Script redirige la réponse vers un autre domaine, ce qui fait échouer la lecture
+       de la réponse alors que la demande est bien enregistrée. Le fetch aboutit = demande reçue. */
+    await fetch(URL_SHEET, {method: "POST", mode: "no-cors", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(payload)});
     say("Merci, votre demande est bien envoyée. Je reviens vers vous très vite.", "ok");
     form.reset();
   } catch (error) {
