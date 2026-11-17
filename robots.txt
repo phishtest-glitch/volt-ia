@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://www.aide-informatique.online/sitemap.xml
+Sitemap: https://aide-informatique.online/sitemap.xml
