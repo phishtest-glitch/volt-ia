@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#17191d">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <title>Compte piraté, mail piraté, virus PC | Assistance informatique Paris</title>
 <meta name="description" content="Compte piraté, adresse mail compromise, arnaque en ligne ou ordinateur infecté ? Assistance informatique et cybersécurité à Paris et en Île-de-France, à distance partout en France.">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -16,145 +18,274 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1c1d20;--panel:#242529;--panel2:#151619;--ink:#f5f5f7;--muted:#a1a1a8;--line:#3a3b40;--blue:#2997ff;--blue2:#1685f7;--green:#78d6a5;--max:1120px}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit}button,input,select,textarea{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #8cc8ff;outline-offset:3px}
-.wrap{width:min(var(--max),calc(100% - 44px));margin:auto}.skip{position:absolute;left:-9999px}.skip:focus{left:15px;top:10px;z-index:99;background:#fff;color:#000;padding:10px}
-header{position:sticky;top:0;z-index:20;background:#1c1d20eF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-size:16px;font-weight:800;letter-spacing:-.05em;text-decoration:none;display:flex;align-items:center;gap:10px}.logo{width:30px;height:30px;border-radius:10px;background:linear-gradient(145deg,#60b5ff,#0874dc);display:grid;place-items:center;color:white}.logo svg{width:19px}.links{display:flex;align-items:center;gap:26px;font-size:13px;color:#c4c4ca}.links a{text-decoration:none}.links a:hover{color:white}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:13px 21px;font-weight:650;text-decoration:none;cursor:pointer;transition:.2s}.btn:hover{background:#48a7ff;transform:translateY(-1px)}.btn.outline{background:transparent;border:1px solid #ffffff35}.btn:disabled{opacity:.65;cursor:wait;transform:none}
-.hero{padding:95px 0 78px;overflow:hidden;position:relative}.hero:before{content:"";position:absolute;right:-190px;top:-270px;width:720px;height:650px;background:radial-gradient(ellipse,#187fe52b,transparent 68%);pointer-events:none}.hero-grid{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:55px;align-items:center}.eyebrow{display:inline-flex;gap:9px;align-items:center;color:#91c7ff;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px #78d6a51c}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(43px,6vw,72px);line-height:1.04;letter-spacing:-.065em;margin:22px 0;font-weight:800}h1 span{background:linear-gradient(100deg,#82c6ff,#55a0ff 55%,#9ce5eb);background-clip:text;color:transparent}.lead{font-size:19px;color:#c2c2c9;max-width:640px;line-height:1.65}.actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:29px}.micro{color:#92929a;font-size:12px;margin:17px 0 0}
-.hero-art{min-height:390px;display:grid;place-items:center;position:relative}.glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,#1e70ca55,transparent 70%)}.security{position:relative;width:min(100%,365px);padding:27px;border-radius:27px;background:linear-gradient(145deg,#292d35,#171a20);border:1px solid #ffffff1e;box-shadow:0 35px 85px #0008;transform:rotate(1.5deg)}.security-top{display:flex;justify-content:space-between;color:#aeb7c5;font-size:11px}.shield{width:94px;height:104px;margin:32px auto 20px;display:grid;place-items:center;background:linear-gradient(145deg,#8acfff,#2778e9);clip-path:polygon(50% 0,93% 18%,88% 67%,50% 100%,12% 67%,7% 18%);filter:drop-shadow(0 0 20px #398cff66)}.shield svg{width:42px;stroke:#102239;stroke-width:1.8;fill:none}.security h2{text-align:center;font-size:21px;letter-spacing:-.04em;margin:0}.security p{text-align:center;color:#a8abb3;font-size:12px;margin:7px 0 23px}.security-line{border-top:1px solid #ffffff18;padding:12px 0;display:flex;justify-content:space-between;font-size:12px;color:#d5d8de}.security-line span:last-child{color:#8cdbb2}.float{position:absolute;padding:10px 14px;background:#292d35;border:1px solid #ffffff20;border-radius:13px;font-size:11px;box-shadow:0 15px 30px #0007}.f1{left:-4px;top:55px}.f2{right:-5px;bottom:48px}
-.section{padding:88px 0}.section.alt{background:#17191d}.heading{max-width:700px;margin:0 auto 43px}.heading.center{text-align:center}.kicker{font-size:11px;font-weight:750;letter-spacing:.14em;color:#8fc4ff;text-transform:uppercase}.heading h2,.trust h2,.contact-copy h2{font-size:clamp(32px,4.2vw,49px);line-height:1.1;letter-spacing:-.055em;margin:14px 0}.heading p,.trust p,.contact-copy p{color:var(--muted);font-size:16px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:linear-gradient(145deg,#26282d,#202126);border:1px solid #ffffff12;border-radius:22px;padding:25px;min-height:180px}.ico{width:42px;height:42px;border-radius:13px;background:#2997ff1d;color:#8fc7ff;display:grid;place-items:center;margin-bottom:17px}.ico svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.card h3,.service h3{font-size:17px;letter-spacing:-.025em;margin:0 0 7px}.card p,.service p{font-size:13px;color:var(--muted);margin:0}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}.step{border-top:1px solid #55565b;padding-top:19px}.num{color:#82bdff;font-size:12px;font-weight:800;letter-spacing:.1em}.step h3{font-size:18px;margin:14px 0 8px}.step p{font-size:13px;color:var(--muted)}
-.note{padding:17px 19px;border:1px solid #4a6e9a66;background:#203047;border-radius:15px;color:#d5e4f7;font-size:13px;margin-top:28px}.note a{color:#9dcbff}
-.services{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.service{padding:26px;border:1px solid #ffffff13;background:#22242a;border-radius:20px}.service a{display:inline-block;margin-top:15px;color:#8fc4ff;font-size:13px;font-weight:700;text-decoration:none}
-.trust-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}.trustbox{background:linear-gradient(145deg,#282d36,#20232a);border:1px solid #ffffff18;border-radius:23px;padding:26px}.trustitem{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid #ffffff15}.trustitem:last-child{border:0}.check{width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;background:#78d6a51b;color:#8cdeb3;font-weight:800}.trustitem b{font-size:13px;display:block}.trustitem span{font-size:12px;color:var(--muted)}
-.contact{background:#17181b;border:1px solid #ffffff16;border-radius:30px;padding:60px 30px}.contact .heading{margin-bottom:30px}.contact .heading p{font-size:17px}.form{max-width:780px;margin:0 auto;display:grid;gap:14px;text-align:left}.form select,.form input,.form textarea{width:100%;background:#171719;border:1px solid #3a3a3f;border-radius:19px;color:#f5f5f7;padding:19px 20px;font-size:16px;min-height:66px}.form select{appearance:auto}.form textarea{min-height:150px;resize:vertical}.form input::placeholder,.form textarea::placeholder{color:#85858b}.form .btn{min-height:72px;border-radius:999px;font-size:17px}.form select:focus,.form input:focus,.form textarea:focus{border-color:#2997ff;outline:none;box-shadow:0 0 0 3px #2997ff25}.form-meta{display:flex;align-items:flex-start;gap:9px;color:#9999a1;font-size:11px;line-height:1.5}.form-meta input{width:auto;min-height:0;margin-top:3px;accent-color:var(--blue)}.status{font-size:13px;color:#b8d9ff;min-height:20px}.hp{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0}
-.faq{max-width:800px;margin:auto}.faq details{border-bottom:1px solid #ffffff20;padding:19px 0}.faq summary{cursor:pointer;list-style:none;font-weight:650;font-size:16px;display:flex;justify-content:space-between;gap:15px}.faq summary:after{content:"+";font-size:23px;color:#9cabbc;font-weight:400}.faq details[open] summary:after{content:"−"}.faq details p{color:var(--muted);font-size:14px;margin:12px 0 0}.resource{display:inline-block;color:#8fc4ff;margin-top:8px;font-size:13px}
-footer{border-top:1px solid #ffffff16;padding:28px 0;color:#92929a;font-size:12px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.foot a{color:#c8d8ec}
-@media(max-width:850px){.links{gap:15px}.links a:not(.btn){display:none}.hero-grid{grid-template-columns:1fr;gap:20px}.hero-art{min-height:350px}.cards{grid-template-columns:repeat(2,1fr)}.trust-grid{grid-template-columns:1fr;gap:25px}}
-@media(max-width:560px){.wrap{width:calc(100% - 32px)}.nav{height:62px}.hero{padding:64px 0 50px}h1{font-size:45px}.lead{font-size:16px}.actions{display:grid}.actions .btn{width:100%}.hero-art{min-height:330px}.security{width:88%;padding:22px}.float{font-size:10px}.f1{top:26px}.f2{bottom:28px}.section{padding:68px 0}.cards,.steps,.services{grid-template-columns:1fr}.card{min-height:0}.contact{padding:40px 17px;border-radius:23px}.form select,.form input,.form textarea{min-height:60px;padding:16px;border-radius:15px}.form .btn{min-height:64px;font-size:16px}.heading h2,.trust h2,.contact-copy h2{font-size:34px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+:root{--bg:#fff;--bg2:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:#d2d2d7;--blue:#0071e3;--blue-h:#0077ed;--on-blue:#fff;--ok:#1d8a4e;--warn-bg:#fff4e5;--warn-ink:#7a4100;--nav:#fffffff0;--max:1080px;--r:28px;
+--font:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif}
+:root:not([data-theme=light]){color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#000;--bg2:#101012;--card:#1c1c1e;--ink:#f5f5f7;--muted:#a1a1a6;--line:#38383a;--blue:#2997ff;--blue-h:#4aa9ff;--on-blue:#001a33;--ok:#5fd68e;--warn-bg:#2b1d0a;--warn-ink:#ffcc80;--nav:#000000e6}}
+*{box-sizing:border-box}
+html{height:100%;scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--font);-webkit-font-smoothing:antialiased;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);overflow-x:hidden}
+h1,h2,h3,p{margin:0}a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:8px}
+.wrap{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:99;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:10px}
+.ic{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* nav */
+header{position:sticky;top:0;z-index:30;background:var(--nav);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.nav{height:56px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:16px;letter-spacing:-.02em;text-decoration:none}
+.brand .ic{width:22px;height:22px;color:var(--blue)}
+.links{display:flex;align-items:center;gap:28px;font-size:13px}
+.links a{text-decoration:none;color:var(--muted);transition:color .2s}.links a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--blue);color:var(--on-blue);border:0;border-radius:980px;padding:12px 24px;font-weight:500;font-size:17px;text-decoration:none;cursor:pointer;transition:background .2s,transform .15s}
+.pill:hover{background:var(--blue-h)}.pill:active{transform:scale(.97)}.pill:disabled{opacity:.6;cursor:wait}
+.pill.sm{padding:6px 14px;font-size:13px}.links a.pill{color:var(--on-blue)}
+.pill.ghost{background:transparent;color:var(--blue);padding-inline:6px}.pill.ghost:hover{background:transparent;text-decoration:underline}
+/* hero */
+.hero{text-align:center;padding:clamp(64px,11vw,128px) 0 clamp(48px,8vw,88px)}
+.hero h1{font-size:clamp(40px,8.2vw,88px);line-height:1.04;letter-spacing:-.045em;font-weight:700;max-width:14ch;margin:0 auto}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.lead{font-size:clamp(18px,2.4vw,24px);line-height:1.4;color:var(--muted);max-width:34em;margin:24px auto 0;letter-spacing:-.01em}
+.actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px;align-items:center}
+.hero-in{animation:up .9s cubic-bezier(.2,.7,.2,1) both}.hero-in:nth-child(2){animation-delay:.1s}.hero-in:nth-child(3){animation-delay:.2s}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* urgence */
+.urgent{margin-top:clamp(44px,7vw,72px);background:var(--bg2);border-radius:var(--r);padding:clamp(24px,4vw,40px);text-align:left}
+.urgent h2{font-size:clamp(22px,3vw,28px);letter-spacing:-.03em;font-weight:600}
+.urgent>p{color:var(--muted);margin-top:6px;font-size:15px}
+.reflex{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.reflex div{background:var(--card);border-radius:20px;padding:20px;font-size:15px;line-height:1.45}
+.reflex .ic{font-size:26px;color:var(--blue);margin-bottom:12px;display:block}
+.reflex b{display:block;font-weight:600;margin-bottom:4px;letter-spacing:-.01em}
+.reflex span{color:var(--muted)}
+.reflex a{color:var(--blue)}
+/* sections */
+.section{padding:clamp(72px,11vw,128px) 0}.section.alt{background:var(--bg2)}
+.head{text-align:center;max-width:720px;margin:0 auto clamp(36px,6vw,64px)}
+.head h2,.split h2,.contact h2{font-size:clamp(32px,5.4vw,56px);line-height:1.07;letter-spacing:-.04em;font-weight:700}
+.head p,.split>div>p{color:var(--muted);font-size:clamp(17px,2vw,21px);line-height:1.45;margin-top:16px}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.tile{background:var(--card);border-radius:var(--r);padding:clamp(24px,3vw,36px);grid-column:span 2;display:flex;flex-direction:column;min-height:240px}
+.alt .tile{background:var(--card)}
+.tile.big{grid-column:span 3;min-height:320px}
+.tile .ic{font-size:34px;color:var(--blue);margin-bottom:auto;padding-bottom:28px}
+.tile h3{font-size:clamp(20px,2.2vw,26px);line-height:1.15;letter-spacing:-.03em;font-weight:600}
+.tile p{color:var(--muted);font-size:15px;line-height:1.45;margin-top:8px}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);counter-reset:s}
+.step{counter-increment:s}
+.step:before{content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--blue);color:var(--on-blue);font-weight:600;font-size:18px;margin-bottom:20px}
+.step h3{font-size:22px;letter-spacing:-.03em;font-weight:600}.step p{color:var(--muted);margin-top:8px;font-size:16px}
+/* services list */
+.svc{max-width:820px;margin:auto}
+.svc a.row{display:flex;align-items:center;gap:18px;padding:26px 4px;border-bottom:1px solid var(--line);text-decoration:none}
+.svc a.row:first-child{border-top:1px solid var(--line)}
+.svc .ic{font-size:30px;color:var(--blue)}
+.svc h3{font-size:clamp(19px,2.4vw,24px);letter-spacing:-.03em;font-weight:600}
+.svc p{color:var(--muted);font-size:15px;margin-top:3px}
+.svc .go{margin-left:auto;font-size:22px;color:var(--muted);transition:transform .2s,color .2s}
+.svc a.row:hover .go{transform:translateX(5px);color:var(--blue)}
+/* trust */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.split .pill{margin-top:28px}
+.checks{background:var(--bg2);border-radius:var(--r);padding:clamp(8px,2vw,16px) clamp(22px,3vw,32px)}
+.alt .checks{background:var(--card)}
+.checks div{display:flex;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}.checks div:last-child{border:0}
+.checks .ic{font-size:24px;color:var(--ok);margin-top:2px}
+.checks b{display:block;font-weight:600;letter-spacing:-.01em}.checks span{color:var(--muted);font-size:15px}
+/* faq */
+.faq{max-width:780px;margin:auto}
+.faq details{border-bottom:1px solid var(--line)}.faq details:first-child{border-top:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 2px;font-size:clamp(17px,2vw,20px);font-weight:600;letter-spacing:-.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"";width:12px;height:12px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translate(-3px,-3px);transition:transform .25s;flex:none}
+.faq details[open] summary:after{transform:rotate(-135deg)}
+.faq details p{color:var(--muted);padding:0 2px 24px;font-size:16px;max-width:64ch}
+.faq .res{display:block;text-align:center;margin-top:30px;color:var(--blue);text-decoration:none;font-size:16px}
+.faq .res:hover{text-decoration:underline}
+/* contact */
+.contact{background:var(--bg2);border-radius:clamp(24px,4vw,40px);padding:clamp(40px,7vw,80px) clamp(20px,5vw,56px)}
+.contact .head{margin-bottom:36px}
+.form{max-width:640px;margin:auto;display:grid;gap:12px}
+.form select,.form input[type=text],.form input[type=tel],.form input[type=email],.form textarea{width:100%;background:var(--card);border:1.5px solid transparent;border-radius:16px;padding:17px 18px;font-size:17px;min-height:58px;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.form select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 22px) 25px,calc(100% - 16px) 25px;background-size:6px 6px;background-repeat:no-repeat;padding-right:44px}
+.form textarea{min-height:150px;resize:vertical}
+.form ::placeholder{color:var(--muted);opacity:.8}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px color-mix(in srgb,var(--blue) 22%,transparent)}
+.form .pill{min-height:58px;font-size:18px;width:100%;margin-top:6px}
+.consent{display:flex;gap:11px;align-items:flex-start;color:var(--muted);font-size:13px;line-height:1.45}
+.consent input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--blue);flex:none}
+.status{font-size:15px;min-height:22px;text-align:center;color:var(--muted)}
+.status.ok{color:var(--ok)}.status.err{color:#d70015}
+@media(prefers-color-scheme:dark){.status.err{color:#ff8a80}}
+.hp{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0}
+footer{padding:32px 0 calc(32px + 76px);color:var(--muted);font-size:13px}
+.foot{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}.foot a{text-decoration:none}.foot a:hover{text-decoration:underline}
+/* barre mobile */
+.dock{display:none}
+@media(max-width:900px){
+.reflex{grid-template-columns:1fr}
+.bento{grid-template-columns:repeat(2,1fr)}.tile,.tile.big{grid-column:span 1;min-height:210px}
+.split{grid-template-columns:1fr}
+.steps{grid-template-columns:1fr;gap:34px}
+.links a:not(.pill){display:none}
+}
+@media(max-width:600px){
+body{font-size:16px}.wrap{width:calc(100% - 32px)}
+.bento{grid-template-columns:1fr}.tile,.tile.big{min-height:0}.tile .ic{padding-bottom:18px}
+.actions .pill{width:100%}.hero .actions{flex-direction:column;gap:6px}
+.svc a.row{gap:14px;padding:22px 0}.svc .ic{font-size:26px}
+.dock{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--nav);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border:1px solid var(--line);border-radius:22px;padding:8px;box-shadow:0 10px 30px #0003;transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.dock.on{transform:none}.dock .pill{width:100%;padding:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"ProfessionalService",
-  "name":"Aide Informatique",
-  "url":"https://aide-informatique.online/",
-  "description":"Assistance informatique, dépannage et accompagnement en cybersécurité pour particuliers et professionnels.",
-  "areaServed":[{"@type":"City","name":"Paris"},{"@type":"AdministrativeArea","name":"Île-de-France"},{"@type":"Country","name":"France"}],
-  "serviceType":["Assistance après piratage de compte","Sécurisation informatique","Dépannage informatique","Prévention contre les arnaques en ligne"]
-}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aide Informatique","url":"https://aide-informatique.online/","description":"Assistance informatique, dépannage et accompagnement en cybersécurité pour particuliers et professionnels.","areaServed":[{"@type":"City","name":"Paris"},{"@type":"AdministrativeArea","name":"Île-de-France"},{"@type":"Country","name":"France"}],"serviceType":["Assistance après piratage de compte","Sécurisation informatique","Dépannage informatique","Prévention contre les arnaques en ligne"]}
 </script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 2.5 19.5 5.5v6c0 4.7-3.2 8.3-7.5 10-4.3-1.7-7.5-5.3-7.5-10v-6L12 2.5Z"/><path d="m8.7 12 2.3 2.3 4.4-4.6"/></symbol>
+<symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 8 8 5.5L20 8"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.7"/><path d="M4.5 20c.8-3.6 3.7-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></symbol>
+<symbol id="fish" viewBox="0 0 24 24"><path d="M12 3 21 20H3L12 3Z"/><path d="M12 10v4.5m0 2.7h.01"/></symbol>
+<symbol id="pc" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2.5"/><path d="M8 20.5h8M12 16.5v4"/></symbol>
+<symbol id="disk" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+<symbol id="biz" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18"/></symbol>
+<symbol id="bank" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5M5 10v8m4-8v8m6-8v8m4-8v8M3 20.5h18"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></symbol>
+<symbol id="key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 8.5-8.5M16 7l3 3"/></symbol>
+<symbol id="wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0 4.9 4.9L20 12 12 20a2.1 2.1 0 0 1-3-3l8-8-.6-.6a4 4 0 0 0-1.9-1.9Z"/></symbol>
+<symbol id="ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.8 2.8L16 9.5"/></symbol>
+<symbol id="arr" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+</defs></svg>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav">
-<a class="brand" href="#accueil"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2 20 5v6c0 5-3.4 8.8-8 11-4.6-2.2-8-6-8-11V5l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span>AIDE-INFORMATIQUE</a>
-<nav class="links" aria-label="Navigation"><a href="#situations">Problèmes</a><a href="#services">Services</a><a href="#faq">FAQ</a><a class="btn" href="#contact">Demander de l'aide ↗</a></nav>
+<a class="brand" href="#accueil" aria-label="Aide Informatique, accueil"><svg class="ic"><use href="#shield"/></svg>Aide Informatique</a>
+<nav class="links" aria-label="Navigation principale"><a href="#situations">Problèmes</a><a href="#methode">Méthode</a><a href="#services">Services</a><a href="#faq">FAQ</a><a class="pill sm" href="#contact">Demander de l'aide</a></nav>
 </div></header>
+
 <main id="contenu">
-<section class="hero" id="accueil"><div class="wrap hero-grid">
-<div><div class="eyebrow"><span class="pulse"></span> Assistance informatique & cybersécurité</div>
-<h1>Vous avez été piraté ?<br><span>Je vous aide à reprendre le contrôle.</span></h1>
-<p class="lead">Compte piraté, adresse mail compromise, arnaque en ligne ou ordinateur infecté : expliquez-moi votre situation. Je vous accompagne pour comprendre le problème et sécuriser vos appareils et vos comptes.</p>
-<div class="actions"><a class="btn" href="#contact">J'ai besoin d'aide maintenant ↗</a><a class="btn outline" href="#methode">Découvrir l'accompagnement</a></div>
-<p class="micro">Particuliers et professionnels · Paris & Île-de-France · Assistance à distance</p></div>
-<div class="hero-art"><div class="glow"></div><div class="float f1">✦ Un interlocuteur humain</div><div class="security">
-<div class="security-top"><span>VOTRE SÉCURITÉ NUMÉRIQUE</span><span style="color:#8cdeb3">● À vos côtés</span></div>
-<div class="shield"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.4-2.8 7.8-7 10-4.2-2.2-7-5.6-7-10V6l7-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
-<h2>On fait le point, ensemble.</h2><p>Des explications claires, sans jargon.</p>
-<div class="security-line"><span>Comprendre l'incident</span><span>01</span></div><div class="security-line"><span>Sécuriser vos accès</span><span>02</span></div><div class="security-line"><span>Prévenir les récidives</span><span>03</span></div>
-</div><div class="float f2">⌁ Votre accord à chaque étape</div></div>
+<section class="hero" id="accueil"><div class="wrap">
+<h1 class="hero-in">Piraté ? On reprend <em>le contrôle.</em></h1>
+<p class="lead hero-in">Compte piraté, mail compromis, arnaque ou ordinateur infecté. Vous m'expliquez, je vous guide pas à pas pour tout sécuriser.</p>
+<div class="actions hero-in"><a class="pill" href="#contact">J'ai besoin d'aide</a><a class="pill ghost" href="#methode">Voir comment ça se passe <svg class="ic" style="width:14px"><use href="#arr"/></svg></a></div>
+<p class="lead hero-in" style="font-size:14px;margin-top:22px">Particuliers et professionnels. Paris, Île-de-France et à distance partout en France.</p>
+
+<aside class="urgent" aria-labelledby="urg">
+<h2 id="urg">Si c'est urgent, faites ces trois choses d'abord</h2>
+<p>Elles protègent votre argent et vos comptes pendant que vous cherchez de l'aide.</p>
+<div class="reflex">
+<div><svg class="ic"><use href="#bank"/></svg><b>Appelez votre banque</b><span>Uniquement via le numéro inscrit au dos de votre carte ou sur l'application officielle.</span></div>
+<div><svg class="ic"><use href="#key"/></svg><b>Ne donnez aucun code</b><span>Ni mot de passe, ni code reçu par SMS, même à quelqu'un qui se dit conseiller ou support.</span></div>
+<div><svg class="ic"><use href="#phone"/></svg><b>Demandez un diagnostic gratuit</b><span>Le service public <a href="https://17cyber.gouv.fr/" target="_blank" rel="noopener noreferrer">17Cyber</a> vous oriente à toute heure.</span></div>
+</div></aside>
 </div></section>
 
 <section class="section alt" id="situations"><div class="wrap">
-<div class="heading center"><div class="kicker">Je peux vous accompagner</div><h2>Quel problème rencontrez-vous ?</h2><p>Vous n'avez pas besoin de connaître les termes techniques. Voici quelques situations fréquentes.</p></div>
-<div class="cards">
-<article class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></div><h3>Adresse mail piratée</h3><p>Gmail, Outlook ou autre messagerie compromise, mot de passe modifié, connexions inconnues.</p></article>
-<article class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5m0 4h.01"/></svg></div><h3>Compte Facebook ou Instagram piraté</h3><p>Compte inaccessible, publications suspectes, usurpation de profil ou messages envoyés à vos proches.</p></article>
-<article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 20 7v5c0 4-3 7-8 9-5-2-8-5-8-9V7l8-4Z"/><path d="M12 8v5m0 3h.01"/></svg></div><h3>Arnaque en ligne et phishing</h3><p>Faux SMS, faux conseiller bancaire, faux support technique, lien frauduleux ou tentative d'escroquerie.</p></article>
-<article class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div><h3>Virus ou ordinateur infecté</h3><p>Publicités intempestives, alertes inhabituelles, lenteurs, logiciel suspect ou appareil bloqué.</p></article>
-<article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18m-7-7 7 7 7-7"/></svg></div><h3>Fichiers ou données inaccessibles</h3><p>Perte de fichiers, sauvegardes à vérifier, données à préserver ou appareil qui ne démarre plus.</p></article>
-<article class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg></div><h3>Sécurité informatique de l'entreprise</h3><p>Comptes professionnels, postes de travail, sauvegardes et bonnes pratiques à renforcer.</p></article>
-</div></div></section>
+<div class="head"><h2>Quel est votre problème ?</h2><p>Pas besoin de connaître les termes techniques. Voici les situations les plus fréquentes.</p></div>
+<div class="bento">
+<article class="tile big"><svg class="ic"><use href="#mail"/></svg><h3>Adresse mail piratée</h3><p>Gmail, Outlook ou autre : mot de passe changé, connexions inconnues, messages que vous n'avez pas écrits.</p></article>
+<article class="tile big"><svg class="ic"><use href="#user"/></svg><h3>Compte Facebook ou Instagram piraté</h3><p>Compte inaccessible, publications suspectes, faux profil ou messages envoyés à vos proches.</p></article>
+<article class="tile"><svg class="ic"><use href="#fish"/></svg><h3>Arnaque et phishing</h3><p>Faux SMS, faux conseiller bancaire, faux support technique, lien suspect.</p></article>
+<article class="tile"><svg class="ic"><use href="#pc"/></svg><h3>Ordinateur infecté</h3><p>Publicités intempestives, lenteurs, alertes étranges, appareil bloqué.</p></article>
+<article class="tile"><svg class="ic"><use href="#disk"/></svg><h3>Fichiers inaccessibles</h3><p>Données perdues, sauvegardes à vérifier, appareil qui ne démarre plus.</p></article>
+</div>
+<div class="bento" style="margin-top:14px"><article class="tile big" style="grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:20px"><svg class="ic" style="padding:0;margin:0;font-size:38px"><use href="#biz"/></svg><div><h3>Sécurité de votre entreprise</h3><p>Comptes professionnels, postes de travail, sauvegardes et bonnes pratiques à renforcer.</p></div></article></div>
+</div></section>
 
 <section class="section" id="methode"><div class="wrap">
-<div class="heading"><div class="kicker">Une méthode simple</div><h2>On avance étape par étape.</h2><p>Un incident peut être stressant. Mon objectif est de vous aider à y voir clair et à choisir les bonnes actions.</p></div>
-<div class="steps"><article class="step"><div class="num">ÉTAPE 01</div><h3>Vous m'expliquez</h3><p>Décrivez ce qui s'est passé, les messages reçus et les difficultés rencontrées. Ne transmettez aucun mot de passe ni code secret.</p></article><article class="step"><div class="num">ÉTAPE 02</div><h3>Nous faisons le point</h3><p>Nous identifions les priorités et les solutions envisageables. Le périmètre et le tarif sont clarifiés avant toute intervention.</p></article><article class="step"><div class="num">ÉTAPE 03</div><h3>Vous êtes accompagné</h3><p>Je vous guide dans les actions de sécurisation adaptées et vous explique comment limiter les risques à l'avenir.</p></article></div>
-<div class="note"><strong>Victime d'une fraude ou d'un piratage en cours ?</strong> En cas de risque bancaire, contactez immédiatement votre banque via son numéro officiel. Vous pouvez également obtenir un diagnostic public gratuit auprès de <a href="https://17cyber.gouv.fr/" target="_blank" rel="noopener noreferrer">17Cyber</a>.</div>
-</div></section>
-
-<section class="section alt" id="services"><div class="wrap">
-<div class="heading center"><div class="kicker">Services informatiques</div><h2>Protéger, dépanner, simplifier.</h2><p>Un accompagnement pour les urgences comme pour l'entretien de votre informatique au quotidien.</p></div>
-<div class="services">
-<article class="service"><div class="ico">⌁</div><h3>Assistance après piratage</h3><p>Analyse de la situation, conseils de sécurisation des comptes et appareils, accompagnement après incident.</p><a href="#contact">Décrire mon incident ↗</a></article>
-<article class="service"><div class="ico">⌘</div><h3>Dépannage informatique</h3><p>Ordinateur lent, installation, configuration, Wi-Fi, transfert de données et assistance à distance.</p><a href="#contact">Demander un dépannage ↗</a></article>
-<article class="service"><div class="ico">◇</div><h3>Cybersécurité & prévention</h3><p>Protection des accès, sauvegardes, mises à jour et sensibilisation aux tentatives de phishing.</p><a href="#contact">Protéger mes équipements ↗</a></article>
-<article class="service"><div class="ico">✳</div><h3>Support aux professionnels</h3><p>Maintenance, accompagnement des utilisateurs, suivi informatique et automatisation de tâches.</p><a href="#contact">Parler de mon entreprise ↗</a></article>
+<div class="head"><h2>Trois étapes. Rien de compliqué.</h2><p>Un incident est stressant. L'objectif : y voir clair et choisir les bonnes actions.</p></div>
+<div class="steps">
+<article class="step"><h3>Vous m'expliquez</h3><p>Racontez ce qui s'est passé et les messages reçus. N'envoyez jamais de mot de passe ni de code secret.</p></article>
+<article class="step"><h3>On fait le point</h3><p>Nous identifions les priorités. Le périmètre et le tarif sont clairs avant toute intervention.</p></article>
+<article class="step"><h3>Je vous accompagne</h3><p>Je vous guide dans la sécurisation de vos accès et vous explique comment éviter que cela se reproduise.</p></article>
 </div></div></section>
 
-<section class="section"><div class="wrap trust-grid">
-<div class="trust"><div class="kicker">La confiance avant tout</div><h2>De la transparence, à chaque étape.</h2><p>Vous savez ce qui est proposé, pourquoi cela est nécessaire et combien cela coûte. Aucune prise en main à distance sans votre accord.</p><a class="btn" href="#contact">Me contacter ↗</a></div>
-<div class="trustbox"><div class="trustitem"><div class="check">✓</div><div><b>Des explications sans jargon</b><span>Vous comprenez les actions proposées.</span></div></div><div class="trustitem"><div class="check">✓</div><div><b>Votre accord avant intervention</b><span>Vous gardez le contrôle de votre appareil.</span></div></div><div class="trustitem"><div class="check">✓</div><div><b>Un devis annoncé clairement</b><span>Pas de promesse de récupération garantie.</span></div></div><div class="trustitem"><div class="check">✓</div><div><b>La prudence sur vos données</b><span>Ne communiquez jamais vos mots de passe ou codes de validation.</span></div></div></div>
-</div></section>
+<section class="section alt" id="services"><div class="wrap">
+<div class="head"><h2>Protéger. Dépanner. Simplifier.</h2><p>Pour les urgences comme pour l'entretien de votre informatique au quotidien.</p></div>
+<div class="svc">
+<a class="row" href="#contact"><svg class="ic"><use href="#shield"/></svg><div><h3>Assistance après piratage</h3><p>Analyse de la situation, sécurisation des comptes et des appareils.</p></div><svg class="ic go"><use href="#arr"/></svg></a>
+<a class="row" href="#contact"><svg class="ic"><use href="#wrench"/></svg><div><h3>Dépannage informatique</h3><p>Ordinateur lent, installation, Wi-Fi, transfert de données, aide à distance.</p></div><svg class="ic go"><use href="#arr"/></svg></a>
+<a class="row" href="#contact"><svg class="ic"><use href="#key"/></svg><div><h3>Cybersécurité et prévention</h3><p>Protection des accès, sauvegardes, mises à jour, repérer le phishing.</p></div><svg class="ic go"><use href="#arr"/></svg></a>
+<a class="row" href="#contact"><svg class="ic"><use href="#biz"/></svg><div><h3>Support aux professionnels</h3><p>Maintenance, suivi informatique, accompagnement des équipes.</p></div><svg class="ic go"><use href="#arr"/></svg></a>
+</div></div></section>
+
+<section class="section"><div class="wrap split">
+<div><h2>La confiance avant tout.</h2><p>Vous savez ce qui est fait, pourquoi, et combien cela coûte. Aucune prise en main à distance sans votre accord.</p><a class="pill" href="#contact">Me contacter</a></div>
+<div class="checks">
+<div><svg class="ic"><use href="#ok"/></svg><p><b>Des explications sans jargon</b><span>Vous comprenez chaque action proposée.</span></p></div>
+<div><svg class="ic"><use href="#ok"/></svg><p><b>Votre accord avant toute intervention</b><span>Vous gardez la main sur votre appareil.</span></p></div>
+<div><svg class="ic"><use href="#ok"/></svg><p><b>Un devis annoncé clairement</b><span>Aucune promesse de récupération garantie.</span></p></div>
+<div><svg class="ic"><use href="#ok"/></svg><p><b>Prudence sur vos données</b><span>Ne communiquez jamais mots de passe ni codes.</span></p></div>
+</div></div></section>
 
 <section class="section alt" id="faq"><div class="wrap">
-<div class="heading center"><div class="kicker">Questions fréquentes</div><h2>Vous souhaitez en savoir plus ?</h2></div>
+<div class="head"><h2>Questions fréquentes</h2></div>
 <div class="faq">
-<details><summary>Que faire si mon adresse e-mail a été piratée ?</summary><p>Depuis un appareil de confiance, utilisez la procédure officielle de récupération du fournisseur de messagerie. Une fois l'accès retrouvé, vérifiez les moyens de récupération, les sessions ouvertes et les règles de transfert inconnues. Si vos informations bancaires peuvent être concernées, prévenez votre banque. Je peux vous accompagner dans les vérifications et la sécurisation.</p></details>
-<details><summary>Pouvez-vous m'aider si mon compte Facebook ou Instagram est piraté ?</summary><p>Oui, je peux vous guider dans les démarches officielles de récupération et vous aider à sécuriser les comptes et les appareils associés. La récupération dépend toutefois des procédures et décisions de la plateforme : elle ne peut pas être garantie.</p></details>
-<details><summary>Que faire si je pense avoir installé un virus ?</summary><p>Évitez de saisir des mots de passe sur l'appareil suspect et ne contactez pas un numéro affiché dans une alerte inattendue. Selon la situation, il peut être prudent de déconnecter l'appareil du réseau et de demander un diagnostic.</p></details>
-<details><summary>Intervenez-vous à distance ?</summary><p>Oui, selon le problème rencontré et après accord explicite. Vous êtes informé des opérations proposées et pouvez refuser une prise en main à distance.</p></details>
-<details><summary>Dans quelle zone intervenez-vous ?</summary><p>Les interventions de proximité sont proposées à Paris et en Île-de-France selon disponibilité. L'assistance à distance peut être étudiée partout en France.</p></details>
-<details><summary>Combien coûte l'assistance ?</summary><p>Le tarif dépend de la situation, du temps nécessaire et du type d'intervention. Le périmètre et le prix doivent être précisés avant toute intervention.</p></details>
-</div>
-<p style="text-align:center;margin-top:25px"><a class="resource" href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/piratage-de-compte" target="_blank" rel="noopener noreferrer">Consulter les conseils officiels en cas de piratage de compte ↗</a></p>
-</div></section>
+<details><summary>Que faire si mon adresse e-mail a été piratée ?</summary><p>Depuis un appareil de confiance, utilisez la procédure officielle de récupération de votre messagerie. Une fois l'accès retrouvé, vérifiez les moyens de récupération, les sessions ouvertes et les règles de transfert inconnues. Si vos informations bancaires peuvent être concernées, prévenez votre banque. Je peux vous accompagner dans ces vérifications.</p></details>
+<details><summary>Pouvez-vous m'aider si mon compte Facebook ou Instagram est piraté ?</summary><p>Oui, je vous guide dans les démarches officielles de récupération et dans la sécurisation des comptes et appareils associés. La récupération dépend toutefois de la plateforme : elle ne peut pas être garantie.</p></details>
+<details><summary>Que faire si je pense avoir installé un virus ?</summary><p>Évitez de saisir des mots de passe sur l'appareil suspect et n'appelez pas un numéro affiché dans une alerte inattendue. Selon la situation, il peut être prudent de le déconnecter du réseau et de demander un diagnostic.</p></details>
+<details><summary>Intervenez-vous à distance ?</summary><p>Oui, selon le problème et après votre accord explicite. Vous êtes informé de chaque opération et pouvez refuser la prise en main à distance.</p></details>
+<details><summary>Dans quelle zone intervenez-vous ?</summary><p>En présentiel à Paris et en Île-de-France selon disponibilité. À distance, partout en France.</p></details>
+<details><summary>Combien coûte l'assistance ?</summary><p>Le tarif dépend de la situation et du temps nécessaire. Le périmètre et le prix sont précisés avant toute intervention.</p></details>
+<a class="res" href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/piratage-de-compte" target="_blank" rel="noopener noreferrer">Lire les conseils officiels en cas de piratage de compte</a>
+</div></div></section>
 
 <section class="section" id="contact"><div class="wrap"><div class="contact">
-<div class="heading center"><div class="kicker">Un premier échange</div><h2>Parlons-en.</h2><p>Laissez vos coordonnées, expliquez votre besoin et je pourrai vous recontacter sous 48 h ouvrées.</p></div>
+<div class="head"><h2>Parlons-en.</h2><p>Décrivez votre besoin. Je vous réponds sous 48 h ouvrées.</p></div>
 <form class="form" id="contact-form" novalidate>
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 <select id="profil" name="profil" aria-label="Votre profil"><option value="particulier">Je suis un particulier</option><option value="entreprise">Je représente une entreprise</option></select>
 <input id="nom" name="nom" type="text" placeholder="Nom ou raison sociale" autocomplete="name" required>
-<input id="tel" name="telephone" type="tel" placeholder="Téléphone" autocomplete="tel" required>
-<input id="email" name="email" type="email" placeholder="Adresse e-mail" autocomplete="email" required>
-<textarea id="msg" name="besoin" placeholder="Votre besoin : compte piraté, mail compromis, arnaque, dépannage, cybersécurité…" required></textarea>
-<label class="form-meta"><input type="checkbox" id="consent" required><span>J'accepte que mes informations soient utilisées pour répondre à ma demande. Ne saisissez aucun mot de passe, code bancaire ou code de validation.</span></label>
-<button class="btn" id="submit" type="submit">Envoyer ma demande <span>↗</span></button>
+<input id="tel" name="telephone" type="tel" placeholder="Téléphone" autocomplete="tel" inputmode="tel" required>
+<input id="email" name="email" type="email" placeholder="Adresse e-mail" autocomplete="email" inputmode="email" required>
+<textarea id="msg" name="besoin" placeholder="Votre besoin : compte piraté, mail compromis, arnaque, dépannage…" required></textarea>
+<label class="consent"><input type="checkbox" id="consent" required><span>J'accepte que mes informations servent à répondre à ma demande. Ne saisissez aucun mot de passe, code bancaire ou code de validation.</span></label>
+<button class="pill" id="submit" type="submit">Envoyer ma demande</button>
 <div class="status" id="form-status" role="status" aria-live="polite"></div>
 </form>
 </div></div></section>
 </main>
-<footer><div class="wrap foot"><span>© <span id="year"></span> aide-informatique.online</span><span><a href="#contact">Contact</a> · <a href="https://www.cybermalveillance.gouv.fr/" target="_blank" rel="noopener noreferrer">Cybermalveillance.gouv.fr</a></span><span>Mentions légales et confidentialité à compléter avant publication.</span></div></footer>
+
+<footer><div class="wrap foot"><span>© <span id="year"></span> aide-informatique.online</span><span><a href="https://www.cybermalveillance.gouv.fr/" target="_blank" rel="noopener noreferrer">Cybermalveillance.gouv.fr</a></span><span>Mentions légales et confidentialité à compléter avant publication.</span></div></footer>
+<div class="dock" id="dock"><a class="pill" href="#contact">Demander de l'aide</a></div>
+
 <script>
-/*
-  CONFIGURATION FORMULAIRE :
-  Collez ici l'URL /exec de votre Google Apps Script (déploiement Web).
-  Le script doit accepter un POST JSON et renvoyer { "ok": true }.
-*/
+/* CONFIGURATION FORMULAIRE : collez ici l'URL /exec de votre Google Apps Script (déploiement Web).
+   Le script doit accepter un POST JSON et renvoyer { "ok": true }. */
 const URL_SHEET = "https://script.google.com/macros/s/REMPLACE_PAR_TON_ID/exec";
 const form = document.getElementById("contact-form");
 const statusBox = document.getElementById("form-status");
 const submit = document.getElementById("submit");
 document.getElementById("year").textContent = new Date().getFullYear();
 
+/* barre d'action mobile : visible après le hero, masquée sur le formulaire */
+const dock = document.getElementById("dock");
+const hero = document.getElementById("accueil");
+const contact = document.getElementById("contact");
+let heroOut = false, contactIn = false;
+const upd = () => dock.classList.toggle("on", heroOut && !contactIn);
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(e => { heroOut = !e[0].isIntersecting; upd(); }, {threshold: 0.05}).observe(hero);
+  new IntersectionObserver(e => { contactIn = e[0].isIntersecting; upd(); }, {threshold: 0.15}).observe(contact);
+}
+
+function say(msg, cls) { statusBox.textContent = msg; statusBox.className = "status" + (cls ? " " + cls : ""); }
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  statusBox.textContent = "";
+  say("");
   if (form.elements.website.value) return;
   if (!form.reportValidity()) return;
   const email = form.elements.email.value.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    statusBox.textContent = "Veuillez vérifier votre adresse e-mail.";
-    return;
-  }
-  if (URL_SHEET.includes("https://script.google.com/macros/s/AKfycbxfumg_2OfG1aWqTHalq6R4yszqBblN7kzxvmoqZrLvdVQgxHL44Q1u5E_0cC5UEL7LKA/exec")) {
-    statusBox.textContent = "Le formulaire est prêt, mais la réception des demandes doit être activée : ajoutez votre URL Google Apps Script dans le code avant publication.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say("Vérifiez votre adresse e-mail.", "err"); return; }
+  if (URL_SHEET.includes("REMPLACE_PAR_TON_ID")) {
+    say("Le formulaire est prêt. Ajoutez l'URL de votre Google Apps Script dans le code avant publication.", "err");
     return;
   }
   const payload = {
@@ -167,23 +298,18 @@ form.addEventListener("submit", async (event) => {
   submit.disabled = true;
   submit.textContent = "Envoi en cours…";
   try {
-    const response = await fetch(URL_SHEET, {
-      method: "POST",
-      headers: {"Content-Type":"text/plain;charset=utf-8"},
-      body: JSON.stringify(payload)
-    });
+    const response = await fetch(URL_SHEET, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(payload)});
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error("Envoi non confirmé");
-    statusBox.textContent = "Merci ! Votre demande a bien été envoyée. Je reviendrai vers vous.";
-    statusBox.style.color = "#8cdeb3";
+    say("Merci, votre demande est bien envoyée. Je reviens vers vous très vite.", "ok");
     form.reset();
   } catch (error) {
-    statusBox.textContent = "L'envoi n'a pas abouti. Réessayez ou contactez-nous directement.";
-    statusBox.style.color = "#ffaaa5";
+    say("L'envoi n'a pas abouti. Réessayez dans un instant ou contactez-moi directement.", "err");
   } finally {
     submit.disabled = false;
-    submit.innerHTML = 'Envoyer ma demande <span>↗</span>';
+    submit.textContent = "Envoyer ma demande";
   }
 });
 </script>
-</body></html>
+</body>
+</html>
